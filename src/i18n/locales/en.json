@@ -1,0 +1,122 @@
+{
+  "brand": {
+    "name": "Sakhi"
+  },
+  "tabs": {
+    "home": "Home",
+    "track": "Track",
+    "learn": "Learn",
+    "ask": "Ask",
+    "settings": "Settings"
+  },
+  "lock": {
+    "title": "Good to see you again",
+    "subtitle": "Enter your 4-digit PIN to step back into your space.",
+    "forgotPin": "Forgot your PIN?",
+    "footerNotice": "Your PIN helps keep your space private.",
+    "createTitle": "Choose a 4-digit PIN",
+    "createSubtitle": "Keep your personal journal and dates safe.",
+    "confirmTitle": "Confirm your PIN",
+    "confirmSubtitle": "Re-enter the 4 digits to make sure.",
+    "pinMismatch": "PINs didn't match. Let's try again.",
+    "incorrectPin": "Incorrect PIN. Take your time.",
+    "resetPrompt": "Resetting your PIN will clear your lock code.",
+    "resetConfirm": "Reset PIN",
+    "cancel": "Cancel"
+  },
+  "home": {
+    "greeting": "Hey, {{name}} 🌸",
+    "defaultName": "Amara",
+    "subtitle": "Whatever today feels like, you're doing okay.",
+    "nextPeriodTag": "NEXT PERIOD",
+    "nextPeriodLabel": "Your next period might start around",
+    "aboutDays": "about {{days}} days",
+    "cycleShiftNotice": "It may arrive a few days before or after — cycles can shift.",
+    "exploreSection": "Explore Sakhi",
+    "seeAll": "See all",
+    "card1Tag": "3 MIN",
+    "card1Title": "Myth or fact?",
+    "card1Subtitle": "No, periods don't sync up.",
+    "card2Tag": "LEARN",
+    "card2Title": "Period basics",
+    "card2Subtitle": "The stuff school may skip.",
+    "askCardTitle": "Ask anything. Really.",
+    "askCardSubtitle": "A judgment-free Q&A for the questions that feel awkward."
+  },
+  "track": {
+    "title": "Cycle tracker",
+    "subtitle": "Your dates, at a glance.",
+    "legendLogged": "Period logged",
+    "legendToday": "Today",
+    "nextPeriodLabel": "Next period",
+    "aroundDate": "Around {{date}}",
+    "likelyRange": "Likely {{range}} — cycles can shift.",
+    "averageCycleLabel": "Average cycle",
+    "averageCycleValue": "{{days}} days",
+    "nextPeriodStatLabel": "Next period",
+    "nextPeriodStatValue": "~{{days}} days",
+    "logButton": "Log or edit period dates"
+  },
+  "learn": {
+    "title": "Your body, better understood",
+    "subtitle": "Real answers. No awkward questions.",
+    "searchPlaceholder": "Search periods, products & more",
+    "featuredTag": "A GOOD PLACE TO START",
+    "featuredTitle": "Your first period, without the guesswork",
+    "readGuide": "Read guide · {{minutes}} min →",
+    "exploreTopics": "Explore by topic",
+    "paceNotice": "Made for your pace",
+    "readsCount": "{{count}} reads",
+    "reassuranceTitle": "There's no one way to grow.",
+    "reassuranceSubtitle": "Your body has its own timeline. That's okay.",
+    "allLearning": "< All learning"
+  },
+  "myths": {
+    "title": "Myths vs facts",
+    "subtitle": "Let's clear up the things you've heard.",
+    "categoryDefault": "Periods & movement",
+    "pace": "At your pace",
+    "mythBadge": "A MYTH YOU MIGHT HEAR",
+    "mythPrompt": "Heard this before? Let's take a gentle look.",
+    "revealButton": "Reveal the fact ↺",
+    "mythTapHint": "Tap the card to see the fact",
+    "factBadge": "THE FACT",
+    "nextCard": "Next card →",
+    "factSwipeHint": "Swipe for another little read",
+    "gentleReassurance": "Just exploring. Nothing to get right.",
+    "sourceLabel": "Source: {{source}}"
+  },
+  "ask": {
+    "title": "Ask anything. Really.",
+    "subtitle": "Find answers, quietly and at your own pace.",
+    "searchPlaceholder": "Search your question or a topic",
+    "browseByTopic": "Browse by topic",
+    "commonQuestions": "Common questions",
+    "tapToExplore": "Tap to explore",
+    "topicFirstPeriods": "First periods",
+    "topicCycleChanges": "Cycle changes",
+    "topicHygiene": "Hygiene",
+    "topicFeelingsDiscomfort": "Feelings & discomfort",
+    "supportTitle": "You don't have to figure it out alone.",
+    "supportSubtitle": "A trusted adult or nurse can help, too."
+  },
+  "settings": {
+    "title": "Settings",
+    "subtitle": "Make Sakhi feel right for you.",
+    "changePinTitle": "Change PIN",
+    "changePinSubtitle": "Choose a new PIN to open Sakhi.",
+    "languageTitle": "Language",
+    "languageSubtitle": "Pick the language you prefer.",
+    "languageValue": "English",
+    "privacyTitle": "Privacy information",
+    "privacySubtitle": "Read Sakhi's privacy information."
+  },
+  "common": {
+    "loading": "Loading...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "done": "Done",
+    "back": "Back"
+  }
+}
+

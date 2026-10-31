@@ -1,0 +1,122 @@
+{
+  "brand": {
+    "name": "सखी"
+  },
+  "tabs": {
+    "home": "होम",
+    "track": "ट्रैक",
+    "learn": "सीखें",
+    "ask": "पूछें",
+    "settings": "सेटिंग्स"
+  },
+  "lock": {
+    "title": "आपको फिर से देखकर खुशी हुई",
+    "subtitle": "अपने स्पेस में वापस आने के लिए 4 अंकों का पिन दर्ज करें।",
+    "forgotPin": "पिन भूल गए?",
+    "footerNotice": "आपका पिन आपकी जानकारी को सुरक्षित रखता है।",
+    "createTitle": "4 अंकों का पिन चुनें",
+    "createSubtitle": "अपनी व्यक्तिगत जानकारी और तारीखें सुरक्षित रखें।",
+    "confirmTitle": "पिन की पुष्टि करें",
+    "confirmSubtitle": "पुष्टि के लिए वही 4 अंक दोबारा डालें।",
+    "pinMismatch": "पिन मेल नहीं खाया। दोबारा प्रयास करें।",
+    "incorrectPin": "गलत पिन। आराम से प्रयास करें।",
+    "resetPrompt": "पिन रीसेट करने से आपका मौजूदा कोड हट जाएगा।",
+    "resetConfirm": "पिन रीसेट करें",
+    "cancel": "रद्द करें"
+  },
+  "home": {
+    "greeting": "नमस्ते, {{name}} 🌸",
+    "defaultName": "अमारा",
+    "subtitle": "आज जैसा भी महसूस हो, आप बिल्कुल ठीक हैं।",
+    "nextPeriodTag": "अगला पीरियड",
+    "nextPeriodLabel": "आपका अगला पीरियड लगभग इस समय शुरू हो सकता है",
+    "aboutDays": "लगभग {{days}} दिन",
+    "cycleShiftNotice": "यह कुछ दिन पहले या बाद में भी आ सकता है — चक्र बदल सकते हैं।",
+    "exploreSection": "सखी में खोजें",
+    "seeAll": "सभी देखें",
+    "card1Tag": "3 मिनट",
+    "card1Title": "मिथक या तथ्य?",
+    "card1Subtitle": "नहीं, पीरियड्स साथ में सिंक नहीं होते।",
+    "card2Tag": "सीखें",
+    "card2Title": "पीरियड की बुनियादी बातें",
+    "card2Subtitle": "वो बातें जो स्कूल में छूट सकती हैं।",
+    "askCardTitle": "कुछ भी पूछें। बेझिझक।",
+    "askCardSubtitle": "उन सवालों के लिए आसान उत्तर जो पूछने में संकोच होता है।"
+  },
+  "track": {
+    "title": "साइकिल ट्रैकर",
+    "subtitle": "आपकी तारीखें, एक नज़र में।",
+    "legendLogged": "पीरियड दर्ज है",
+    "legendToday": "आज",
+    "nextPeriodLabel": "अगला पीरियड",
+    "aroundDate": "{{date}} के आसपास",
+    "likelyRange": "लगभग {{range}} — चक्र बदल सकते हैं।",
+    "averageCycleLabel": "औसत चक्र",
+    "averageCycleValue": "{{days}} दिन",
+    "nextPeriodStatLabel": "अगला पीरियड",
+    "nextPeriodStatValue": "~{{days}} दिन",
+    "logButton": "तारीखें दर्ज या संपादित करें"
+  },
+  "learn": {
+    "title": "अपने शरीर को बेहतर समझें",
+    "subtitle": "सच्चे उत्तर। कोई असहज सवाल नहीं।",
+    "searchPlaceholder": "पीरियड्स, उत्पादों और अन्य चीज़ों के बारे में खोजें",
+    "featuredTag": "शुरुआत के लिए अच्छा",
+    "featuredTitle": "आपका पहला पीरियड, बिना किसी उलझन के",
+    "readGuide": "गाइड पढ़ें · {{minutes}} मिनट →",
+    "exploreTopics": "विषय के अनुसार देखें",
+    "paceNotice": "आपकी गति के अनुसार",
+    "readsCount": "{{count}} बार पढ़ा गया",
+    "reassuranceTitle": "बढ़ने का कोई एक तय तरीका नहीं है।",
+    "reassuranceSubtitle": "हर शरीर की अपनी गति होती है। यह सामान्य है।",
+    "allLearning": "< सभी विषय"
+  },
+  "myths": {
+    "title": "मिथक बनाम तथ्य",
+    "subtitle": "सुनी-सुनाई बातों को साफ़ समझें।",
+    "categoryDefault": "पीरियड्स और व्यायाम",
+    "pace": "अपनी गति से",
+    "mythBadge": "एक आम मिथक",
+    "mythPrompt": "क्या आपने ऐसा सुना है? आइए आराम से समझें।",
+    "revealButton": "सच्चाई जानें ↺",
+    "mythTapHint": "तथ्य देखने के लिए कार्ड पर टैप करें",
+    "factBadge": "तथ्य",
+    "nextCard": "अगला कार्ड →",
+    "factSwipeHint": "एक और जानकारी के लिए स्वाइप करें",
+    "gentleReassurance": "बस जानने के लिए। कोई परीक्षा नहीं है।",
+    "sourceLabel": "स्रोत: {{source}}"
+  },
+  "ask": {
+    "title": "कुछ भी पूछें। बेझिझक।",
+    "subtitle": "शांति से और अपनी गति से उत्तर पाएं।",
+    "searchPlaceholder": "अपना प्रश्न या विषय खोजें",
+    "browseByTopic": "विषय चुनें",
+    "commonQuestions": "सामान्य प्रश्न",
+    "tapToExplore": "देखने के लिए टैप करें",
+    "topicFirstPeriods": "पहला पीरियड",
+    "topicCycleChanges": "चक्र में बदलाव",
+    "topicHygiene": "स्वच्छता",
+    "topicFeelingsDiscomfort": "भावनाएं और परेशानी",
+    "supportTitle": "आपको अकेले परेशान होने की ज़रूरत नहीं है।",
+    "supportSubtitle": "घर के बड़े या नर्स भी मदद कर सकते हैं।"
+  },
+  "settings": {
+    "title": "सेटिंग्स",
+    "subtitle": "सखी को अपने अनुसार बनाएं।",
+    "changePinTitle": "पिन बदलें",
+    "changePinSubtitle": "सखी खोलने के लिए नया पिन चुनें।",
+    "languageTitle": "भाषा",
+    "languageSubtitle": "अपनी पसंदीदा भाषा चुनें।",
+    "languageValue": "हिन्दी",
+    "privacyTitle": "गोपनीयता जानकारी",
+    "privacySubtitle": "सखी की गोपनीयता नीति पढ़ें।"
+  },
+  "common": {
+    "loading": "लोड हो रहा है...",
+    "save": "सहेजें",
+    "cancel": "रद्द करें",
+    "done": "हो गया",
+    "back": "पीछे"
+  }
+}
+
