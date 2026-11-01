@@ -1,56 +1,71 @@
-# Welcome to your Expo app 👋
+# SAKHI - Menstrual Health Awareness App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A simple mobile app that combines a menstrual cycle tracker with easy-to-understand educational content, built to help adolescent girls learn about periods in a comfortable, non-judgmental way.
 
-## Get started
+> **Disclaimer:** This app is for awareness and education only. It does not provide medical advice, diagnosis, or treatment. For any health concern, please talk to a doctor or a trusted healthcare professional.
 
-1. Install dependencies
+## Why this project?
 
-   ```bash
-   npm install
-   ```
+Many adolescent girls still lack access to clear, reliable information about menstrual health. Myths, social stigma, and lack of awareness can make it hard to ask questions or talk about periods. This app aims to provide correct information, based on research papers, in a safe and judgment-free space.
 
-2. Start the app
+## Objectives
 
-   ```bash
-   npx expo start
-   ```
+- Improve awareness about menstruation and menstrual hygiene among adolescent girls
+- Help users understand common myths and facts related to periods
+- Provide a dedicated space for questions they may not be comfortable asking others
+- Offer easy-to-understand educational content in one place
+- Help users keep track of their menstrual cycles
+- Create a safe and comfortable way to learn about menstrual health
 
-In the output, you'll find options to open the app in a
+## Features
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+- **Cycle tracker:** log and keep track of menstrual cycles
+- **Educational content:** information on periods and menstrual hygiene
+- **Myths vs. facts:** common misconceptions explained simply
+- **Ask a question:** a private space for questions that feel hard to ask elsewhere
 
-You can start developing by editing the files inside the **src/app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## Tech Stack
 
-## Get a fresh project
+- React Native with [Expo](https://expo.dev)
+- Local content database
 
-When you're ready, run:
+## Getting Started
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org) (LTS version)
+- npm or yarn
+- The Expo Go app on your phone, or an Android/iOS emulator
+
+### Installation
 
 ```bash
-npm run reset-project
+# Clone the repository
+git clone https://github.com/nimartakthind11-svg/Community-Service-Project-.git
+cd Community-Service-Project-
+
+# Install dependencies
+npm install
+
+# Start the development server
+npx expo start
 ```
 
-This command will move the starter code to the **example** directory and create a blank **src/app** directory where you can start developing.
+Then scan the QR code with Expo Go (Android/iOS), or press `a` for an Android emulator or `i` for an iOS simulator.
 
-### Other setup steps
+## Content Sources
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+Educational content is written in our own words and based on published research. Sources are cited in the app's content so users and reviewers can verify the information.
 
-## Learn more
+## Feedback
 
-To learn more about developing your project with Expo, look at the following resources:
+We plan to test the app with real users and use their feedback to improve the content and overall experience. If you have suggestions, please open an issue in this repository.
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+## Contributors
 
-## Join the community
+- Kirti Saini
+- Nimarta Kaur Thind
 
-Join our community of developers creating universal apps.
+## License
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+This project is licensed under the [MIT License](LICENSE).
