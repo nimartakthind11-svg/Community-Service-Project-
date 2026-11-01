@@ -44,6 +44,7 @@ function AuthGate() {
         animation: 'fade',
       }}
     >
+      <Stack.Screen name="index" options={{ animation: 'none' }} />
       <Stack.Screen name="(auth)/lock" />
       <Stack.Screen name="(tabs)" />
       <Stack.Screen name="learn/myths-vs-facts" />

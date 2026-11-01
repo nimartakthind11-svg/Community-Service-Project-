@@ -33,12 +33,20 @@
   },
   "home": {
     "greeting": "Hey, {{name}} 🌸",
-    "defaultName": "Amara",
+    "greetingNoName": "Hey there 🌸",
     "subtitle": "Whatever today feels like, you're doing okay.",
     "nextPeriodTag": "NEXT PERIOD",
     "nextPeriodLabel": "Your next period might start around",
-    "aboutDays": "about {{days}} days",
+    "pillToday": "today",
+    "pillTomorrow": "tomorrow",
+    "pillAboutDays": "about {{days}} days",
+    "pillFewDaysLate": "a few days late",
     "cycleShiftNotice": "It may arrive a few days before or after — cycles can shift.",
+    "estimateBadge": "estimate",
+    "noDataCardTitle": "Log your first period",
+    "noDataCardSubtitle": "Once you log a period, you'll see your next one estimated here.",
+    "noDataCardButton": "Log a period →",
+    "editButtonLabel": "Edit last period",
     "exploreSection": "Explore Sakhi",
     "seeAll": "See all",
     "card1Tag": "3 MIN",
@@ -48,7 +56,14 @@
     "card2Title": "Period basics",
     "card2Subtitle": "The stuff school may skip.",
     "askCardTitle": "Ask anything. Really.",
-    "askCardSubtitle": "A judgment-free Q&A for the questions that feel awkward."
+    "askCardSubtitle": "A judgment-free Q&A for the questions that feel awkward.",
+    "nickname": {
+      "sheetTitle": "What should we call you? 🌸",
+      "sheetSubtitle": "Add a nickname so Sakhi feels like your own space. You can always change it in Settings.",
+      "placeholder": "Nickname (optional)",
+      "saveButton": "Save nickname",
+      "skipButton": "Skip for now"
+    }
   },
   "track": {
     "title": "Cycle tracker",

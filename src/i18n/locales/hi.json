@@ -33,12 +33,20 @@
   },
   "home": {
     "greeting": "नमस्ते, {{name}} 🌸",
-    "defaultName": "अमारा",
+    "greetingNoName": "नमस्ते 🌸",
     "subtitle": "आज जैसा भी महसूस हो, आप बिल्कुल ठीक हैं।",
     "nextPeriodTag": "अगला पीरियड",
     "nextPeriodLabel": "आपका अगला पीरियड लगभग इस समय शुरू हो सकता है",
-    "aboutDays": "लगभग {{days}} दिन",
+    "pillToday": "आज",
+    "pillTomorrow": "कल",
+    "pillAboutDays": "लगभग {{days}} दिन",
+    "pillFewDaysLate": "कुछ दिन देर से",
     "cycleShiftNotice": "यह कुछ दिन पहले या बाद में भी आ सकता है — चक्र बदल सकते हैं।",
+    "estimateBadge": "अनुमान",
+    "noDataCardTitle": "अपना पहला पीरियड लॉग करें",
+    "noDataCardSubtitle": "एक बार लॉग करने के बाद, आप यहाँ अपना अनुमानित अगला पीरियड देखेंगी।",
+    "noDataCardButton": "पीरियड लॉग करें →",
+    "editButtonLabel": "अंतिम पीरियड संपादित करें",
     "exploreSection": "सखी में खोजें",
     "seeAll": "सभी देखें",
     "card1Tag": "3 मिनट",
@@ -48,7 +56,14 @@
     "card2Title": "पीरियड की बुनियादी बातें",
     "card2Subtitle": "वो बातें जो स्कूल में छूट सकती हैं।",
     "askCardTitle": "कुछ भी पूछें। बेझिझक।",
-    "askCardSubtitle": "उन सवालों के लिए आसान उत्तर जो पूछने में संकोच होता है।"
+    "askCardSubtitle": "उन सवालों के लिए आसान उत्तर जो पूछने में संकोच होता है।",
+    "nickname": {
+      "sheetTitle": "हम आपको क्या बुलाएँ? 🌸",
+      "sheetSubtitle": "एक उपनाम जोड़ें ताकि सखी आपकी अपनी लगे। आप इसे Settings में बदल सकती हैं।",
+      "placeholder": "उपनाम (वैकल्पिक)",
+      "saveButton": "उपनाम सहेजें",
+      "skipButton": "अभी छोड़ें"
+    }
   },
   "track": {
     "title": "साइकिल ट्रैकर",
