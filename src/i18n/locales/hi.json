@@ -70,14 +70,48 @@
     "subtitle": "आपकी तारीखें, एक नज़र में।",
     "legendLogged": "पीरियड दर्ज है",
     "legendToday": "आज",
+    "legendPredicted": "अनुमानित",
     "nextPeriodLabel": "अगला पीरियड",
     "aroundDate": "{{date}} के आसपास",
     "likelyRange": "लगभग {{range}} — चक्र बदल सकते हैं।",
+    "noPredictionYet": "अभी कोई अनुमान नहीं",
+    "logFirstPeriodHint": "अनुमान देखने के लिए अपना पहला पीरियड दर्ज करें।",
     "averageCycleLabel": "औसत चक्र",
     "averageCycleValue": "{{days}} दिन",
+    "needMoreCyclesHint": "2+ पीरियड्स आवश्यक हैं",
     "nextPeriodStatLabel": "अगला पीरियड",
     "nextPeriodStatValue": "~{{days}} दिन",
-    "logButton": "तारीखें दर्ज या संपादित करें"
+    "nextPeriodToday": "आज",
+    "nextPeriodTomorrow": "कल",
+    "nextPeriodLate": "कुछ दिन देर से",
+    "statNoValue": "—",
+    "logButton": "तारीखें दर्ज या संपादित करें",
+    "quickLogged": "{{date}} के लिए पीरियड दर्ज किया गया।",
+    "sheet": {
+      "title": "पीरियड तारीखें दर्ज करें",
+      "editTitle": "पीरियड तारीखें संपादित करें",
+      "subtitle": "अपने पीरियड की शुरुआत और समाप्ति तिथि चुनने के लिए कैलेंडर पर टैप करें।",
+      "startDateLabel": "शुरुआती तारीख",
+      "endDateLabel": "समाप्ति तारीख (वैकल्पिक)",
+      "notSelected": "चुनने के लिए कैलेंडर पर टैप करें",
+      "saveButton": "तारीखें सहेजें",
+      "deleteButton": "यह पीरियड हटाएं",
+      "cancelButton": "रद्द करें",
+      "successMessage": "सहेज लिया गया। अपना ध्यान रखने के लिए धन्यवाद।",
+      "deletedMessage": "पीरियड हटा दिया गया।",
+      "errors": {
+        "endBeforeStart": "समाप्ति तिथि शुरुआती तारीख से पहले नहीं हो सकती।",
+        "futureDate": "भविष्य की तारीखें दर्ज नहीं की जा सकतीं।",
+        "periodOverlap": "ये तारीखें पहले से दर्ज किसी पीरियड से टकराती हैं।",
+        "invalidDate": "कृपया एक शुरुआती तारीख चुनें।"
+      }
+    },
+    "confirmDelete": {
+      "title": "क्या यह पीरियड हटाएं?",
+      "message": "क्या आप सुनिश्चित हैं कि {{range}} का दर्ज पीरियड हटाना चाहती हैं?",
+      "confirm": "हटाएं",
+      "cancel": "रखें"
+    }
   },
   "learn": {
     "title": "अपने शरीर को बेहतर समझें",

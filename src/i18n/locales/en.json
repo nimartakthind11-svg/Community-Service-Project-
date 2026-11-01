@@ -70,14 +70,48 @@
     "subtitle": "Your dates, at a glance.",
     "legendLogged": "Period logged",
     "legendToday": "Today",
+    "legendPredicted": "Predicted",
     "nextPeriodLabel": "Next period",
     "aroundDate": "Around {{date}}",
     "likelyRange": "Likely {{range}} — cycles can shift.",
+    "noPredictionYet": "No prediction yet",
+    "logFirstPeriodHint": "Log your first period to see an estimate.",
     "averageCycleLabel": "Average cycle",
     "averageCycleValue": "{{days}} days",
+    "needMoreCyclesHint": "2+ periods needed",
     "nextPeriodStatLabel": "Next period",
     "nextPeriodStatValue": "~{{days}} days",
-    "logButton": "Log or edit period dates"
+    "nextPeriodToday": "Today",
+    "nextPeriodTomorrow": "Tomorrow",
+    "nextPeriodLate": "A few days late",
+    "statNoValue": "—",
+    "logButton": "Log or edit period dates",
+    "quickLogged": "Period logged for {{date}}.",
+    "sheet": {
+      "title": "Log period dates",
+      "editTitle": "Edit period dates",
+      "subtitle": "Tap days on the calendar to set your period start and end dates.",
+      "startDateLabel": "Start date",
+      "endDateLabel": "End date (optional)",
+      "notSelected": "Tap calendar to select",
+      "saveButton": "Save dates",
+      "deleteButton": "Delete this period",
+      "cancelButton": "Cancel",
+      "successMessage": "Saved. Thanks for looking after yourself.",
+      "deletedMessage": "Period removed.",
+      "errors": {
+        "endBeforeStart": "End date cannot be earlier than start date.",
+        "futureDate": "Dates in the future cannot be logged.",
+        "periodOverlap": "These dates overlap with an already logged period.",
+        "invalidDate": "Please select a start date."
+      }
+    },
+    "confirmDelete": {
+      "title": "Remove this period?",
+      "message": "Are you sure you want to remove the logged period from {{range}}?",
+      "confirm": "Remove",
+      "cancel": "Keep"
+    }
   },
   "learn": {
     "title": "Your body, better understood",
