@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, useCallback, useRef } from 'react';
 import { AppState, AppStateStatus } from 'react-native';
-import { hasSavedPin, savePin, verifyPin, removePin } from './pinStorage';
+import type { SQLiteDatabase } from 'expo-sqlite';
+import { hasSavedPin, savePin, verifyPin, wipeLocalUserData } from './pinStorage';
 
 interface AuthContextType {
   isAuthenticated: boolean;
@@ -8,7 +9,7 @@ interface AuthContextType {
   isLoading: boolean;
   unlockWithPin: (pin: string) => Promise<boolean>;
   setupNewPin: (pin: string) => Promise<void>;
-  resetUserPin: () => Promise<void>;
+  resetUserPin: (db?: SQLiteDatabase | null) => Promise<void>;
   lockSession: () => void;
 }
 
@@ -79,8 +80,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setIsAuthenticated(true);
   }, []);
 
-  const resetUserPin = useCallback(async (): Promise<void> => {
-    await removePin();
+  const resetUserPin = useCallback(async (db?: SQLiteDatabase | null): Promise<void> => {
+    await wipeLocalUserData(db);
     setIsPinSet(false);
     setIsAuthenticated(false);
   }, []);

@@ -14,15 +14,22 @@
     "subtitle": "Enter your 4-digit PIN to step back into your space.",
     "forgotPin": "Forgot your PIN?",
     "footerNotice": "Your PIN helps keep your space private.",
-    "createTitle": "Choose a 4-digit PIN",
+    "createTitle": "Create your PIN",
     "createSubtitle": "Keep your personal journal and dates safe.",
     "confirmTitle": "Confirm your PIN",
     "confirmSubtitle": "Re-enter the 4 digits to make sure.",
     "pinMismatch": "PINs didn't match. Let's try again.",
-    "incorrectPin": "Incorrect PIN. Take your time.",
-    "resetPrompt": "Resetting your PIN will clear your lock code.",
-    "resetConfirm": "Reset PIN",
-    "cancel": "Cancel"
+    "wrongPin": "That's not quite right, try again",
+    "lockedOutCountdown": "Too many attempts. Try again in {{seconds}}s",
+    "resetSheetTitle": "Reset your PIN?",
+    "resetSheetDescription": "Because Sakhi keeps everything strictly on your device with no accounts, resetting your PIN will erase your logged cycle dates and personal settings to protect your privacy.",
+    "resetSheetCancel": "Cancel",
+    "resetSheetConfirm": "Erase and reset",
+    "accessibility": {
+      "digit": "Digit {{digit}}",
+      "delete": "Delete last digit",
+      "dotsStatus": "{{count}} of 4 digits entered"
+    }
   },
   "home": {
     "greeting": "Hey, {{name}} 🌸",

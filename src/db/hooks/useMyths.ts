@@ -1,7 +1,7 @@
-import { useState, useEffect, useCallback } from 'react';
 import { useSQLiteContext } from 'expo-sqlite';
-import { Myth } from '../schema';
+import { useCallback, useEffect, useState } from 'react';
 import { getAllMyths } from '../repositories/mythsRepository';
+import { Myth } from '../schema';
 
 export function useMyths() {
   const db = useSQLiteContext();

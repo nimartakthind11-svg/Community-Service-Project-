@@ -1,14 +1,14 @@
 import React from 'react';
 import {
-  Pressable,
-  Text,
-  StyleSheet,
   ActivityIndicator,
-  ViewStyle,
+  Pressable,
+  StyleSheet,
+  Text,
   TextStyle,
   View,
+  ViewStyle,
 } from 'react-native';
-import { Colors, Typography, Radii, Shadows } from '../constants/theme';
+import { Colors, Radii, Shadows, Typography } from '../constants/theme';
 
 interface PrimaryButtonProps {
   title: string;
