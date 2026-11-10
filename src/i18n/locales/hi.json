@@ -125,7 +125,15 @@
     "readsCount": "{{count}} बार पढ़ा गया",
     "reassuranceTitle": "बढ़ने का कोई एक तय तरीका नहीं है।",
     "reassuranceSubtitle": "हर शरीर की अपनी गति होती है। यह सामान्य है।",
-    "allLearning": "< सभी विषय"
+    "allLearning": "< सभी विषय",
+    "searchEmptyTitle": "कुछ नहीं मिला।",
+    "searchEmptySubtitle": "कोई दूसरा शब्द आज़माएं, या 'पूछें' टैब में जाएं",
+    "searchEmptyAskButton": "'पूछें' टैब पर जाएं →",
+    "searchResultsCount": "{{count}} परिणाम",
+    "readTick": "पढ़ा गया",
+    "articles": "लेख",
+    "source": "स्रोत: {{source}}",
+    "verifiedMedicalInfo": "प्रमाणित स्वास्थ्य शिक्षा"
   },
   "myths": {
     "title": "मिथक बनाम तथ्य",

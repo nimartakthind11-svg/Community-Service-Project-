@@ -80,6 +80,34 @@ export const SEED_ARTICLES = [
     read_minutes: 3,
     source: 'AAP - Menstruation in Girls and Adolescents',
   },
+  {
+    topic_slug: 'hygiene',
+    title: 'Pad care & comfortable changing',
+    body: 'Changing your pad every 4 to 6 hours keeps you clean, dry, and comfortable. Wash your hands with soap and water before and after changing. Wrap the used pad in toilet paper or the wrapper from the new one before placing it in a trash bin. Never flush pads or wrappers down the toilet.',
+    read_minutes: 3,
+    source: 'UNICEF - Guide to Menstrual Hygiene Materials',
+  },
+  {
+    topic_slug: 'hygiene',
+    title: 'Baths, showers & everyday freshness',
+    body: 'Taking a warm bath or shower during your period is completely safe and healthy. Warm water can relax tense abdominal muscles and soothe cramp discomfort. Use gentle, unscented soap on the outside only — your vagina naturally cleanses itself internally with natural fluids.',
+    read_minutes: 2,
+    source: 'ACOG - Caring for Your Body During Puberty',
+  },
+  {
+    topic_slug: 'body-changes',
+    title: 'Puberty, hormones & changing moods',
+    body: 'During puberty, your brain begins producing hormones that signal changes throughout your body. Along with physical growth, you might feel sudden shifts in mood or energy. These ups and downs are completely normal. Giving yourself time to rest and talking to a trusted friend or adult can help.',
+    read_minutes: 3,
+    source: 'AAP - Understanding Puberty in Adolescents',
+  },
+  {
+    topic_slug: 'body-changes',
+    title: 'Growing at your own pace',
+    body: "Puberty doesn't happen on a set schedule. Some girls start experiencing changes around age 9 or 10, while others begin at 13 or 14. Both timelines are healthy and normal. There is no right or wrong way for your body to grow.",
+    read_minutes: 3,
+    source: 'WHO - Adolescent Growth and Development Guidelines',
+  },
 ];
 
 export const SEED_MYTHS = [

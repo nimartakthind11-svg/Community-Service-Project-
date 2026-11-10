@@ -125,7 +125,15 @@
     "readsCount": "{{count}} reads",
     "reassuranceTitle": "There's no one way to grow.",
     "reassuranceSubtitle": "Your body has its own timeline. That's okay.",
-    "allLearning": "< All learning"
+    "allLearning": "< All learning",
+    "searchEmptyTitle": "Nothing found.",
+    "searchEmptySubtitle": "Try another word, or ask in the Ask tab",
+    "searchEmptyAskButton": "Go to Ask tab →",
+    "searchResultsCount": "{{count}} results",
+    "readTick": "Read",
+    "articles": "Articles",
+    "source": "Source: {{source}}",
+    "verifiedMedicalInfo": "Evidence-based health education"
   },
   "myths": {
     "title": "Myths vs facts",

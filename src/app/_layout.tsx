@@ -49,6 +49,7 @@ function AuthGate() {
       <Stack.Screen name="(tabs)" />
       <Stack.Screen name="learn/myths-vs-facts" />
       <Stack.Screen name="learn/[topic]" />
+      <Stack.Screen name="learn/article/[id]" />
     </Stack>
   );
 }

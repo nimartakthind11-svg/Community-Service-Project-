@@ -159,5 +159,29 @@ export async function migrateDbIfNeeded(db: SQLiteDatabase): Promise<void> {
       );
     }
   }
+
+  // Ensure all seed articles exist even if database was seeded in a prior version
+  for (const a of SEED_ARTICLES) {
+    const topic = await db.getFirstAsync<{ id: number }>(
+      'SELECT id FROM topics WHERE slug = ?',
+      a.topic_slug
+    );
+    if (topic) {
+      const existing = await db.getFirstAsync<{ id: number }>(
+        'SELECT id FROM articles WHERE title = ?',
+        a.title
+      );
+      if (!existing) {
+        await db.runAsync(
+          'INSERT INTO articles (topic_id, title, body, read_minutes, source) VALUES (?, ?, ?, ?, ?)',
+          topic.id,
+          a.title,
+          a.body,
+          a.read_minutes,
+          a.source
+        );
+      }
+    }
+  }
 }
 
