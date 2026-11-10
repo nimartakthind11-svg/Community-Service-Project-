@@ -1,19 +1,37 @@
 import { Platform } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
+import * as Crypto from 'expo-crypto';
 import type { SQLiteDatabase } from 'expo-sqlite';
 import { SEED_SETTINGS } from '../db/seedData';
 import {
   PIN_STORAGE_KEY,
+  PIN_SALT,
   FAILED_ATTEMPTS_KEY,
   LOCKOUT_UNTIL_KEY,
   MAX_FAILED_ATTEMPTS,
   LOCKOUT_DURATION_MS,
-  hashPin,
   computeLockoutState,
   LockoutStatus,
 } from './pinLogic';
 
-export * from './pinLogic';
+export {
+  PIN_STORAGE_KEY,
+  PIN_SALT,
+  FAILED_ATTEMPTS_KEY,
+  LOCKOUT_UNTIL_KEY,
+  MAX_FAILED_ATTEMPTS,
+  LOCKOUT_DURATION_MS,
+  computeLockoutState,
+  LockoutStatus,
+};
+
+export async function hashPin(pin: string, salt: string = PIN_SALT): Promise<string> {
+  const input = `${salt}:${pin}`;
+  return await Crypto.digestStringAsync(
+    Crypto.CryptoDigestAlgorithm.SHA256,
+    input
+  );
+}
 
 export async function getItem(key: string): Promise<string | null> {
   if (Platform.OS === 'web') {
