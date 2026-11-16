@@ -55,6 +55,21 @@ export interface Question {
   question: string;
   answer: string;
   source: string;
+  is_concerning?: number;
+}
+
+export interface SuggestedQuestion {
+  id: number;
+  question: string;
+  topic_slug: string | null;
+  created_at: string;
+}
+
+export interface QuestionFeedback {
+  id: number;
+  question_id: number;
+  is_helpful: number;
+  created_at: string;
 }
 
 export interface ArticleRead {

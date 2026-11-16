@@ -241,29 +241,96 @@ export const SEED_MYTHS = [
 ];
 
 export const SEED_QUESTIONS = [
+  // First periods
   {
     topic_slug: 'first-periods',
     question: 'What if my period starts at school?',
     answer: 'It is very normal and happens to almost everyone! Keep a spare pad in your bag. If you do not have one, you can visit the school nurse, ask a female teacher, or ask a trusted friend. You can also fold clean toilet paper temporarily while you get a pad.',
     source: 'AAP - Menstruation in Girls and Adolescents',
+    is_concerning: 0,
   },
+  {
+    topic_slug: 'first-periods',
+    question: 'How will I know when my first period is coming?',
+    answer: 'Puberty brings several changes before your first period: breast development, growth of body hair, and a whitish or clear vaginal discharge that often appears 6 to 12 months beforehand. These are healthy signs your body is maturing.',
+    source: 'ACOG - Your First Period (Ages 11-14)',
+    is_concerning: 0,
+  },
+  {
+    topic_slug: 'first-periods',
+    question: 'Does having a period hurt?',
+    answer: 'Many people feel mild dull aches or pressure in their lower abdomen or lower back, called cramps. Others feel very little discomfort. Cramps happen because the uterus gently contracts to shed its lining.',
+    source: 'ACOG - Dysmenorrhea: Painful Periods in Teens',
+    is_concerning: 0,
+  },
+
+  // Cycle changes
   {
     topic_slug: 'cycle-changes',
     question: "Why doesn't my period come on time?",
     answer: 'During the first two years after your first period, irregular cycles are very common while your hormones balance out. It may take some time to settle into a predictable pattern.',
     source: 'ACOG - Menstruation in Girls and Adolescents',
+    is_concerning: 0,
   },
+  {
+    topic_slug: 'cycle-changes',
+    question: 'Can stress or lack of sleep delay my period?',
+    answer: 'Yes! The brain region called the hypothalamus controls both stress responses and menstrual hormones. High stress, sudden weight shifts, travel, or irregular sleep can temporarily cause your period to be delayed.',
+    source: 'AAP - Adolescent Health and Menstruation',
+    is_concerning: 0,
+  },
+  {
+    topic_slug: 'cycle-changes',
+    question: 'What should I do if bleeding is extremely heavy?',
+    answer: 'Most people lose only a few tablespoons of blood over several days. However, soaking through a pad every 1 to 2 hours for consecutive hours, passing blood clots larger than a coin, or feeling weak/dizzy are signs that require speaking with a trusted adult or doctor.',
+    source: 'ACOG - Abnormal Uterine Bleeding in Adolescents',
+    is_concerning: 1,
+  },
+
+  // Hygiene
   {
     topic_slug: 'hygiene-ask',
     question: 'How often should I change my pad?',
     answer: 'It is recommended to change your pad every 4 to 6 hours, or sooner if it feels heavy or damp. Changing regularly keeps you feeling clean, dry, and comfortable.',
     source: 'WHO & UNICEF - Menstrual Hygiene Guidelines',
+    is_concerning: 0,
   },
+  {
+    topic_slug: 'hygiene-ask',
+    question: 'How do I dispose of a used pad properly?',
+    answer: 'Wrap the used pad neatly in toilet paper or inside the wrapper from your fresh replacement pad. Always dispose of it in a trash bin. Never flush sanitary pads down the toilet as they clog plumbing.',
+    source: 'UNICEF - Guide to Menstrual Hygiene Materials',
+    is_concerning: 0,
+  },
+  {
+    topic_slug: 'hygiene-ask',
+    question: 'Can I take a shower or bath while on my period?',
+    answer: 'Yes, absolutely! Daily warm showers or baths are completely safe, hygienic, and can soothe tense abdominal muscles and cramp discomfort.',
+    source: 'ACOG - Caring for Your Body During Puberty',
+    is_concerning: 0,
+  },
+
+  // Feelings & discomfort
   {
     topic_slug: 'feelings-discomfort',
     question: 'What can help when I have cramps?',
     answer: 'A warm heating pad or warm water bottle placed on your tummy, gentle stretching or walking, resting, and sipping warm water can help soothe cramps.',
     source: 'ACOG - Dysmenorrhea: Painful Periods',
+    is_concerning: 0,
+  },
+  {
+    topic_slug: 'feelings-discomfort',
+    question: 'Why do I feel emotional or tearful before my period?',
+    answer: 'Shifting levels of estrogen and progesterone in the days before your period can affect brain neurotransmitters like serotonin. Mood swings, feeling tearful, or feeling low energy are natural and temporary.',
+    source: 'AAP - Understanding Puberty in Adolescents',
+    is_concerning: 0,
+  },
+  {
+    topic_slug: 'feelings-discomfort',
+    question: 'When are cramps too painful to just wait out?',
+    answer: 'While mild cramping is common, pain that stops you from standing, makes you vomit, causes you to miss school, or does not improve with gentle warmth and rest should never be ignored. Medical care can help identify relief.',
+    source: 'ACOG - Dysmenorrhea: Painful Periods in Teens',
+    is_concerning: 1,
   },
 ];
 

@@ -8,4 +8,6 @@ export * from './SearchInput';
 export * from './SectionHeader';
 export * from './MythCardIllustration';
 export * from './TopicFilterSheet';
+export * from './QuestionAnswerSheet';
+export * from './SuggestQuestionModal';
 

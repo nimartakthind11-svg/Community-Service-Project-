@@ -64,6 +64,7 @@ export async function migrateDbIfNeeded(db: SQLiteDatabase): Promise<void> {
       question TEXT NOT NULL,
       answer TEXT NOT NULL,
       source TEXT NOT NULL,
+      is_concerning INTEGER DEFAULT 0,
       FOREIGN KEY (topic_id) REFERENCES topics(id) ON DELETE SET NULL
     );
 
@@ -79,6 +80,21 @@ export async function migrateDbIfNeeded(db: SQLiteDatabase): Promise<void> {
       myth_id INTEGER UNIQUE NOT NULL,
       viewed_at TEXT NOT NULL,
       FOREIGN KEY (myth_id) REFERENCES myths(id) ON DELETE CASCADE
+    );
+
+    CREATE TABLE IF NOT EXISTS suggested_questions (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      question TEXT NOT NULL,
+      topic_slug TEXT,
+      created_at TEXT NOT NULL
+    );
+
+    CREATE TABLE IF NOT EXISTS question_feedback (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      question_id INTEGER NOT NULL UNIQUE,
+      is_helpful INTEGER NOT NULL,
+      created_at TEXT NOT NULL,
+      FOREIGN KEY (question_id) REFERENCES questions(id) ON DELETE CASCADE
     );
   `);
 
@@ -231,6 +247,64 @@ export async function migrateDbIfNeeded(db: SQLiteDatabase): Promise<void> {
         m.fact,
         m.source,
         m.position
+      );
+    }
+  }
+
+  // Ensure is_concerning column exists in questions for existing DBs
+  try {
+    await db.execAsync('ALTER TABLE questions ADD COLUMN is_concerning INTEGER DEFAULT 0;');
+  } catch {
+    // Column already exists
+  }
+
+  // Ensure suggested_questions and question_feedback tables exist for existing DBs
+  await db.execAsync(`
+    CREATE TABLE IF NOT EXISTS suggested_questions (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      question TEXT NOT NULL,
+      topic_slug TEXT,
+      created_at TEXT NOT NULL
+    );
+
+    CREATE TABLE IF NOT EXISTS question_feedback (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      question_id INTEGER NOT NULL UNIQUE,
+      is_helpful INTEGER NOT NULL,
+      created_at TEXT NOT NULL,
+      FOREIGN KEY (question_id) REFERENCES questions(id) ON DELETE CASCADE
+    );
+  `);
+
+  // Ensure all seed questions exist and carry clinical sources and concern tags
+  for (const q of SEED_QUESTIONS) {
+    const topic = await db.getFirstAsync<{ id: number }>(
+      'SELECT id FROM topics WHERE slug = ?',
+      q.topic_slug
+    );
+    const existing = await db.getFirstAsync<{ id: number }>(
+      'SELECT id FROM questions WHERE question = ?',
+      q.question
+    );
+    if (existing) {
+      await db.runAsync(
+        'UPDATE questions SET topic_id = ?, topic_slug = ?, answer = ?, source = ?, is_concerning = ? WHERE id = ?',
+        topic?.id ?? null,
+        q.topic_slug,
+        q.answer,
+        q.source,
+        (q as any).is_concerning ?? 0,
+        existing.id
+      );
+    } else {
+      await db.runAsync(
+        'INSERT INTO questions (topic_id, topic_slug, question, answer, source, is_concerning) VALUES (?, ?, ?, ?, ?, ?)',
+        topic?.id ?? null,
+        q.topic_slug,
+        q.question,
+        q.answer,
+        q.source,
+        (q as any).is_concerning ?? 0
       );
     }
   }

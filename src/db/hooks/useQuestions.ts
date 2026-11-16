@@ -1,18 +1,29 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useSQLiteContext } from 'expo-sqlite';
 import { Question } from '../schema';
-import { getQuestions, searchQuestions } from '../repositories/questionsRepository';
+import {
+  getQuestions,
+  searchQuestions,
+  saveQuestionFeedback,
+  getAllQuestionFeedback,
+  saveSuggestedQuestion,
+} from '../repositories/questionsRepository';
 
 export function useQuestions(topicSlug?: string) {
   const db = useSQLiteContext();
   const [questions, setQuestions] = useState<Question[]>([]);
+  const [feedbackMap, setFeedbackMap] = useState<Map<number, boolean>>(new Map());
   const [loading, setLoading] = useState(true);
 
-  const refreshQuestions = useCallback(async () => {
+  const loadAll = useCallback(async () => {
     try {
       setLoading(true);
-      const data = await getQuestions(db, topicSlug);
+      const [data, feedback] = await Promise.all([
+        getQuestions(db, topicSlug),
+        getAllQuestionFeedback(db),
+      ]);
       setQuestions(data);
+      setFeedbackMap(feedback);
     } catch (err) {
       console.error('Failed to load questions:', err);
     } finally {
@@ -22,17 +33,23 @@ export function useQuestions(topicSlug?: string) {
 
   useEffect(() => {
     let isMounted = true;
-    getQuestions(db, topicSlug)
-      .then((data) => {
+    (async () => {
+      try {
+        setLoading(true);
+        const [data, feedback] = await Promise.all([
+          getQuestions(db, topicSlug),
+          getAllQuestionFeedback(db),
+        ]);
         if (isMounted) {
           setQuestions(data);
-          setLoading(false);
+          setFeedbackMap(feedback);
         }
-      })
-      .catch((err) => {
+      } catch (err) {
         console.error('Failed to load questions:', err);
+      } finally {
         if (isMounted) setLoading(false);
-      });
+      }
+    })();
 
     return () => {
       isMounted = false;
@@ -42,12 +59,12 @@ export function useQuestions(topicSlug?: string) {
   const search = useCallback(
     async (query: string) => {
       if (!query.trim()) {
-        await refreshQuestions();
+        await loadAll();
         return;
       }
       try {
         setLoading(true);
-        const data = await searchQuestions(db, query);
+        const data = await searchQuestions(db, query, topicSlug);
         setQuestions(data);
       } catch (err) {
         console.error('Failed to search questions:', err);
@@ -55,8 +72,39 @@ export function useQuestions(topicSlug?: string) {
         setLoading(false);
       }
     },
-    [db, refreshQuestions]
+    [db, topicSlug, loadAll]
   );
 
-  return { questions, loading, refreshQuestions, search };
+  const submitFeedback = useCallback(
+    async (questionId: number, isHelpful: boolean) => {
+      try {
+        await saveQuestionFeedback(db, questionId, isHelpful);
+        setFeedbackMap((prev) => {
+          const next = new Map(prev);
+          next.set(questionId, isHelpful);
+          return next;
+        });
+      } catch (err) {
+        console.error('Failed to save question feedback:', err);
+      }
+    },
+    [db]
+  );
+
+  const suggestQuestion = useCallback(
+    async (text: string) => {
+      await saveSuggestedQuestion(db, text, topicSlug);
+    },
+    [db, topicSlug]
+  );
+
+  return {
+    questions,
+    loading,
+    feedbackMap,
+    refreshQuestions: loadAll,
+    search,
+    submitFeedback,
+    suggestQuestion,
+  };
 }
