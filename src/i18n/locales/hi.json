@@ -204,7 +204,9 @@
     "languageSubtitle": "अपनी पसंदीदा भाषा चुनें।",
     "languageValue": "हिन्दी",
     "privacyTitle": "गोपनीयता जानकारी",
-    "privacySubtitle": "सखी की गोपनीयता नीति पढ़ें।"
+    "privacySubtitle": "सखी की गोपनीयता नीति पढ़ें।",
+    "aboutVersion": "सखी v1.0.0",
+    "aboutDisclaimer": "जागरूकता और शिक्षा के लिए एक साधन, चिकित्सीय सलाह नहीं।"
   },
   "common": {
     "loading": "लोड हो रहा है...",

@@ -204,7 +204,9 @@
     "languageSubtitle": "Pick the language you prefer.",
     "languageValue": "English",
     "privacyTitle": "Privacy information",
-    "privacySubtitle": "Read Sakhi's privacy information."
+    "privacySubtitle": "Read Sakhi's privacy information.",
+    "aboutVersion": "Sakhi v1.0.0",
+    "aboutDisclaimer": "An awareness and education tool, not medical advice."
   },
   "common": {
     "loading": "Loading...",
