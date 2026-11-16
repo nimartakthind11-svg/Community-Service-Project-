@@ -148,7 +148,20 @@
     "nextCard": "अगला कार्ड →",
     "factSwipeHint": "एक और जानकारी के लिए स्वाइप करें",
     "gentleReassurance": "बस जानने के लिए। कोई परीक्षा नहीं है।",
-    "sourceLabel": "स्रोत: {{source}}"
+    "sourceLabel": "स्रोत: {{source}}",
+    "allTopics": "सभी",
+    "filterTitle": "विषय चुनें",
+    "filterSubtitle": "विषय के अनुसार मिथक चुनें",
+    "completionTitle": "अभी के लिए इतना ही।",
+    "completionSubtitle": "कभी भी वापस आएं",
+    "completionReassurance": "आपने इस विषय के कार्ड देख लिए हैं। कोई परीक्षा नहीं है — सीखना सिर्फ आपके लिए है।",
+    "startAgain": "फिर से शुरू करें",
+    "backToLearning": "सीखने पर वापस जाएं",
+    "topicPeriodsMovement": "पीरियड्स और व्यायाम",
+    "topicHygiene": "स्वच्छता",
+    "topicFirstPeriods": "पहला पीरियड",
+    "topicCycleChanges": "चक्र में बदलाव",
+    "cardCount": "कार्ड {{current}} / {{total}}"
   },
   "ask": {
     "title": "कुछ भी पूछें। बेझिझक।",

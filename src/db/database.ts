@@ -73,6 +73,13 @@ export async function migrateDbIfNeeded(db: SQLiteDatabase): Promise<void> {
       read_at TEXT NOT NULL,
       FOREIGN KEY (article_id) REFERENCES articles(id) ON DELETE CASCADE
     );
+
+    CREATE TABLE IF NOT EXISTS myth_views (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      myth_id INTEGER UNIQUE NOT NULL,
+      viewed_at TEXT NOT NULL,
+      FOREIGN KEY (myth_id) REFERENCES myths(id) ON DELETE CASCADE
+    );
   `);
 
   // 2. Check if already seeded
@@ -181,6 +188,50 @@ export async function migrateDbIfNeeded(db: SQLiteDatabase): Promise<void> {
           a.source
         );
       }
+    }
+  }
+
+  // Ensure all seed topics exist
+  for (const t of SEED_TOPICS) {
+    await db.runAsync(
+      'INSERT OR IGNORE INTO topics (slug, title, subtitle, icon, read_count, category) VALUES (?, ?, ?, ?, ?, ?)',
+      t.slug,
+      t.title,
+      t.subtitle,
+      t.icon,
+      t.read_count,
+      t.category
+    );
+  }
+
+  // Ensure all seed myths exist and map to appropriate topics
+  for (const m of SEED_MYTHS) {
+    const topic = await db.getFirstAsync<{ id: number }>(
+      'SELECT id FROM topics WHERE slug = ?',
+      m.topic_slug
+    );
+    const existing = await db.getFirstAsync<{ id: number }>(
+      'SELECT id FROM myths WHERE myth = ?',
+      m.myth
+    );
+    if (existing) {
+      await db.runAsync(
+        'UPDATE myths SET topic_id = ?, position = ?, source = ?, fact = ? WHERE id = ?',
+        topic?.id ?? null,
+        m.position,
+        m.source,
+        m.fact,
+        existing.id
+      );
+    } else {
+      await db.runAsync(
+        'INSERT INTO myths (topic_id, myth, fact, source, position) VALUES (?, ?, ?, ?, ?)',
+        topic?.id ?? null,
+        m.myth,
+        m.fact,
+        m.source,
+        m.position
+      );
     }
   }
 }

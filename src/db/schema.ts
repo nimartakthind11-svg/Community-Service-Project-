@@ -37,6 +37,17 @@ export interface Myth {
   position: number;
 }
 
+export interface MythWithTopic extends Myth {
+  topic_slug?: string;
+  topic_title?: string;
+}
+
+export interface MythView {
+  id: number;
+  myth_id: number;
+  viewed_at: string;
+}
+
 export interface Question {
   id: number;
   topic_id: number | null;

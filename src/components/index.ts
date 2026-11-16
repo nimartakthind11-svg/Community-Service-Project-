@@ -6,4 +6,6 @@ export * from './Card';
 export * from './Chip';
 export * from './SearchInput';
 export * from './SectionHeader';
+export * from './MythCardIllustration';
+export * from './TopicFilterSheet';
 

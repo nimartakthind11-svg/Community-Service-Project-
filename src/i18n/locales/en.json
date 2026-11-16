@@ -148,7 +148,20 @@
     "nextCard": "Next card →",
     "factSwipeHint": "Swipe for another little read",
     "gentleReassurance": "Just exploring. Nothing to get right.",
-    "sourceLabel": "Source: {{source}}"
+    "sourceLabel": "Source: {{source}}",
+    "allTopics": "All",
+    "filterTitle": "Choose a topic",
+    "filterSubtitle": "Filter the myths by topic",
+    "completionTitle": "That's all for now.",
+    "completionSubtitle": "Come back anytime",
+    "completionReassurance": "You've explored the cards in this topic. There's nothing to test or get right — learning is just for you.",
+    "startAgain": "Start again",
+    "backToLearning": "Back to learning",
+    "topicPeriodsMovement": "Periods & movement",
+    "topicHygiene": "Hygiene",
+    "topicFirstPeriods": "First periods",
+    "topicCycleChanges": "Cycle changes",
+    "cardCount": "Card {{current}} of {{total}}"
   },
   "ask": {
     "title": "Ask anything. Really.",

@@ -1,5 +1,13 @@
 export const SEED_TOPICS = [
   {
+    slug: 'periods-movement',
+    title: 'Periods & movement',
+    subtitle: 'Movement, activity & staying comfortable.',
+    icon: 'activity',
+    read_count: 0,
+    category: 'learn',
+  },
+  {
     slug: 'hygiene',
     title: 'Hygiene',
     subtitle: 'Products, changing & feeling comfortable.',
@@ -111,33 +119,124 @@ export const SEED_ARTICLES = [
 ];
 
 export const SEED_MYTHS = [
+  // Periods & Movement
   {
-    topic_slug: 'myths-vs-facts',
+    topic_slug: 'periods-movement',
     myth: "You can't exercise during your period.",
     fact: "You can move if it feels good. Gentle movement, like walking or stretching, may help ease cramps. Rest is okay too — choose what feels comfortable for you.",
     source: 'ACOG - Dysmenorrhea: Painful Periods',
     position: 1,
   },
   {
-    topic_slug: 'myths-vs-facts',
-    myth: "Periods sync up when people spend time together.",
-    fact: "Science shows cycle synchrony is a statistical coincidence. Every body has its own unique hormonal rhythm.",
-    source: 'Human Reproduction (Oxford Academic) - Menstrual cycle synchrony analysis',
+    topic_slug: 'periods-movement',
+    myth: "Swimming during your period is harmful or dirty.",
+    fact: "Swimming during your period is entirely safe and healthy. Water cannot enter the cervix or uterus, and gentle swimming often relieves menstrual cramps.",
+    source: 'AAP - Menstruation in Girls and Adolescents',
     position: 2,
   },
   {
-    topic_slug: 'myths-vs-facts',
-    myth: "You shouldn't wash your hair or bathe during your period.",
-    fact: "Washing your hair and taking warm baths or showers is completely safe and healthy. Warm water can relax tense muscles and soothe cramp discomfort.",
-    source: 'UNICEF - Guide to Menstrual Hygiene Materials',
+    topic_slug: 'periods-movement',
+    myth: "Strenuous physical activity can damage your reproductive health.",
+    fact: "Normal sports and physical activities do not harm your internal organs. Regular movement promotes blood flow and releases endorphins that reduce cramps.",
+    source: 'ACOG - Exercise and Fitness Guidelines',
     position: 3,
   },
   {
-    topic_slug: 'myths-vs-facts',
+    topic_slug: 'periods-movement',
+    myth: "You should avoid any running or jumping while on your period.",
+    fact: "Running and jumping are completely safe during your period if you feel up to it. Wearing a comfortable pad or supportive underwear is all you need.",
+    source: 'WHO - Adolescent Health and Menstrual Hygiene',
+    position: 4,
+  },
+
+  // Hygiene
+  {
+    topic_slug: 'hygiene',
+    myth: "You shouldn't wash your hair or bathe during your period.",
+    fact: "Washing your hair and taking warm baths or showers is completely safe and healthy. Warm water can relax tense muscles and soothe cramp discomfort.",
+    source: 'UNICEF - Guide to Menstrual Hygiene Materials',
+    position: 5,
+  },
+  {
+    topic_slug: 'hygiene',
+    myth: "Touching certain foods or plants during your period will spoil them.",
+    fact: "Menstruation is a completely natural biological process. It has zero effect on food, plants, or objects you touch. Clean handwashing keeps everything safe.",
+    source: 'WHO - Myths and Realities of Menstrual Health',
+    position: 6,
+  },
+  {
+    topic_slug: 'hygiene',
+    myth: "You should use perfumed soaps or sprays to stay fresh during periods.",
+    fact: "Scented soaps, deodorants, and perfumed pads can irritate sensitive skin and disrupt natural pH balance. Clean warm water and mild unscented soap on the outside are best.",
+    source: 'ACOG - Caring for Your Body During Puberty',
+    position: 7,
+  },
+  {
+    topic_slug: 'hygiene',
+    myth: "You only need to change your pad once a day if your flow is light.",
+    fact: "Pads should be changed every 4 to 6 hours regardless of flow to prevent bacterial buildup, reduce dampness, and prevent skin irritation.",
+    source: 'UNICEF - Guide to Menstrual Hygiene Materials',
+    position: 8,
+  },
+
+  // First periods
+  {
+    topic_slug: 'first-periods',
     myth: "Using a pad will feel obvious to everyone around you.",
     fact: "Pads are designed to fit discreetly inside your underwear. No one can see or tell that you are wearing one.",
     source: 'WHO - Adolescent Health and Menstrual Hygiene',
-    position: 4,
+    position: 9,
+  },
+  {
+    topic_slug: 'first-periods',
+    myth: "Everyone gets their first period at the exact same age.",
+    fact: "The normal range for starting periods is between ages 9 and 15. Every body develops according to its own genetics and hormonal timeline.",
+    source: 'AAP - Menstruation in Girls and Adolescents',
+    position: 10,
+  },
+  {
+    topic_slug: 'first-periods',
+    myth: "You lose large amounts of blood during your period.",
+    fact: "Although it may seem like a lot, the average person only loses about 2 to 3 tablespoons (30 to 50 ml) of menstrual fluid over their entire period.",
+    source: 'ACOG - Your First Period (Ages 11-14)',
+    position: 11,
+  },
+  {
+    topic_slug: 'first-periods',
+    myth: "Severe, unbearable period pain is just something you must live with.",
+    fact: "Mild cramping is common, but pain that keeps you home from school or does not respond to a warm compress should be checked by a doctor.",
+    source: 'ACOG - Dysmenorrhea: Painful Periods in Teens',
+    position: 12,
+  },
+
+  // Cycle changes
+  {
+    topic_slug: 'cycle-changes',
+    myth: "Periods sync up when people spend time together.",
+    fact: "Science shows cycle synchrony is a statistical coincidence. Every body has its own unique hormonal rhythm.",
+    source: 'Human Reproduction (Oxford Academic) - Menstrual cycle synchrony analysis',
+    position: 13,
+  },
+  {
+    topic_slug: 'cycle-changes',
+    myth: "Every healthy person has a strict 28-day cycle.",
+    fact: "Cycles naturally vary between 21 and 45 days, especially during teenage years when hormones are still settling into a rhythm.",
+    source: 'AAP & ACOG - Menstruation in Adolescents: Using the Menstrual Cycle as a Vital Sign',
+    position: 14,
+  },
+  {
+    topic_slug: 'cycle-changes',
+    myth: "Drinking cold water makes menstrual cramps worse.",
+    fact: "Drinking cold water does not cause or worsen menstrual cramps. Cramps are caused by chemical prostaglandins in the uterus, not temperature in your digestive system.",
+    source: 'WHO - Adolescent Health and Menstrual Hygiene',
+    position: 15,
+  },
+  {
+    topic_slug: 'cycle-changes',
+    myth: "An irregular cycle in your first two years means something is wrong.",
+    fact: "It is completely normal for periods to be irregular in the first two to three years as your reproductive system and hormone cycles mature.",
+    source: 'ACOG - Your First Period (Ages 11-14)',
+    position: 16,
   },
 ];
 
