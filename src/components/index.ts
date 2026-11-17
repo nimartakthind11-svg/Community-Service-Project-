@@ -10,4 +10,5 @@ export * from './MythCardIllustration';
 export * from './TopicFilterSheet';
 export * from './QuestionAnswerSheet';
 export * from './SuggestQuestionModal';
+export * from './PinKeypad';
 

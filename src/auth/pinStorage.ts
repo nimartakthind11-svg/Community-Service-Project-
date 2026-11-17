@@ -12,6 +12,9 @@ import {
   LOCKOUT_DURATION_MS,
   computeLockoutState,
   LockoutStatus,
+  isValidPinFormat,
+  verifyPinAgainstHash,
+  validateNewPinConfirmation,
 } from './pinLogic';
 
 export {
@@ -23,6 +26,9 @@ export {
   LOCKOUT_DURATION_MS,
   computeLockoutState,
   LockoutStatus,
+  isValidPinFormat,
+  verifyPinAgainstHash,
+  validateNewPinConfirmation,
 };
 
 export async function hashPin(pin: string, salt: string = PIN_SALT): Promise<string> {
@@ -72,6 +78,10 @@ export async function savePin(pin: string): Promise<void> {
   const hash = await hashPin(pin);
   await setItem(PIN_STORAGE_KEY, hash);
   await resetFailedAttempts();
+}
+
+export async function changeUserPin(newPin: string): Promise<void> {
+  await savePin(newPin);
 }
 
 export async function verifyPin(pin: string): Promise<boolean> {

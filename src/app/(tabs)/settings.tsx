@@ -16,6 +16,7 @@
 
 import React from 'react';
 import { View, Text, StyleSheet, Pressable } from 'react-native';
+import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { Lock, Languages, Shield, ChevronRight } from 'lucide-react-native';
 
@@ -25,11 +26,17 @@ import { Colors, Typography, Radii, Shadows, Layout } from '@/constants/theme';
 import { triggerKeyHaptic } from '@/utils/haptics';
 
 export default function SettingsScreen() {
+  const router = useRouter();
   const { t } = useTranslation();
 
   const handleRowPress = () => {
     triggerKeyHaptic();
     // Functionality deferred to subsequent commits
+  };
+
+  const handleChangePinPress = () => {
+    triggerKeyHaptic();
+    router.push('/settings/change-pin' as any);
   };
 
   return (
@@ -51,7 +58,7 @@ export default function SettingsScreen() {
       <View style={styles.rowsContainer}>
         {/* Row 1: Change PIN */}
         <Pressable
-          onPress={handleRowPress}
+          onPress={handleChangePinPress}
           style={({ pressed }) => [
             styles.cardRow,
             pressed && styles.cardRowPressed,

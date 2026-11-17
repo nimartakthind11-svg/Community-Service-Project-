@@ -208,6 +208,22 @@
     "aboutVersion": "Sakhi v1.0.0",
     "aboutDisclaimer": "An awareness and education tool, not medical advice."
   },
+  "changePin": {
+    "title": "Change PIN",
+    "stepCurrentTitle": "Enter current PIN",
+    "stepCurrentSubtitle": "Enter your current 4-digit PIN to verify it's you.",
+    "stepNewTitle": "Enter new PIN",
+    "stepNewSubtitle": "Choose a new 4-digit PIN.",
+    "stepConfirmTitle": "Confirm new PIN",
+    "stepConfirmSubtitle": "Re-enter your new 4-digit PIN to make sure.",
+    "stepIndicator": "Step {{step}} of 3",
+    "pinMismatch": "New PINs didn't match. Let's try again.",
+    "wrongCurrentPin": "That's not your current PIN. Try again.",
+    "successTitle": "PIN updated",
+    "successSubtitle": "Your new 4-digit PIN is active. Use it next time you open Sakhi.",
+    "backToSettings": "Back to Settings",
+    "back": "Settings"
+  },
   "common": {
     "loading": "Loading...",
     "save": "Save",

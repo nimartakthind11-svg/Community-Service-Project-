@@ -55,3 +55,40 @@ export function computeLockoutState(
     failedCount,
   };
 }
+
+/**
+ * Validate that a PIN consists of exactly 4 numeric digits.
+ */
+export function isValidPinFormat(pin: string): boolean {
+  return /^\d{4}$/.test(pin);
+}
+
+/**
+ * Verify whether an input PIN matches a known SHA-256 hash.
+ */
+export async function verifyPinAgainstHash(
+  inputPin: string,
+  storedHash: string,
+  salt: string = PIN_SALT
+): Promise<boolean> {
+  if (!storedHash || !inputPin) return false;
+  const computedHash = await hashPin(inputPin, salt);
+  return computedHash === storedHash;
+}
+
+/**
+ * Validate whether new PIN matches confirmation PIN and meets 4-digit requirement.
+ */
+export function validateNewPinConfirmation(
+  newPin: string,
+  confirmPin: string
+): { isValid: boolean; error?: 'mismatch' | 'invalid_format' } {
+  if (!isValidPinFormat(newPin) || !isValidPinFormat(confirmPin)) {
+    return { isValid: false, error: 'invalid_format' };
+  }
+  if (newPin !== confirmPin) {
+    return { isValid: false, error: 'mismatch' };
+  }
+  return { isValid: true };
+}
+

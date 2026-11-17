@@ -9,6 +9,7 @@ interface AuthContextType {
   isLoading: boolean;
   unlockWithPin: (pin: string) => Promise<boolean>;
   setupNewPin: (pin: string) => Promise<void>;
+  changePin: (newPin: string) => Promise<void>;
   resetUserPin: (db?: SQLiteDatabase | null) => Promise<void>;
   lockSession: () => void;
 }
@@ -80,6 +81,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setIsAuthenticated(true);
   }, []);
 
+  const changePin = useCallback(async (newPin: string): Promise<void> => {
+    await savePin(newPin);
+    setIsPinSet(true);
+  }, []);
+
   const resetUserPin = useCallback(async (db?: SQLiteDatabase | null): Promise<void> => {
     await wipeLocalUserData(db);
     setIsPinSet(false);
@@ -98,6 +104,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         isLoading,
         unlockWithPin,
         setupNewPin,
+        changePin,
         resetUserPin,
         lockSession,
       }}
