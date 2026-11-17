@@ -45,8 +45,6 @@ import {
   subMonths,
   format,
   parseISO,
-  isAfter,
-  startOfDay,
 } from 'date-fns';
 
 import { ScreenWrapper } from '@/components/ScreenWrapper';
@@ -119,8 +117,6 @@ const LogPeriodSheet: React.FC<LogSheetProps> = ({
     }).start();
   }, [slideAnim]);
 
-  const today = useMemo(() => startOfDay(new Date()), []);
-
   // Mini calendar days for sheetMonth
   const sheetDays = useMemo(() => {
     const monthStart = startOfMonth(sheetMonth);
@@ -132,12 +128,6 @@ const LogPeriodSheet: React.FC<LogSheetProps> = ({
   }, [sheetMonth]);
 
   const handleDayPress = (day: Date) => {
-    if (isAfter(startOfDay(day), today)) {
-      triggerErrorHaptic();
-      setValidationError(t('track.sheet.errors.futureDate'));
-      return;
-    }
-
     triggerKeyHaptic();
     setValidationError(null);
     const dayStr = formatDateKey(day);
@@ -158,8 +148,7 @@ const LogPeriodSheet: React.FC<LogSheetProps> = ({
       selectedStart,
       selectedEnd,
       existingLogs,
-      editingLog?.id,
-      today
+      editingLog?.id
     );
 
     if (!validation.isValid && validation.errorKey) {
@@ -325,7 +314,6 @@ const LogPeriodSheet: React.FC<LogSheetProps> = ({
           <View style={styles.daysGrid}>
             {sheetDays.map((day, idx) => {
               const inCurrentMonth = isSameMonth(day, sheetMonth);
-              const isFuture = isAfter(startOfDay(day), today);
               const selected = isSelected(day);
               const isStartDay = selectedStart === formatDateKey(day);
               const isEndDay = selectedEnd === formatDateKey(day);
@@ -333,8 +321,8 @@ const LogPeriodSheet: React.FC<LogSheetProps> = ({
               return (
                 <Pressable
                   key={idx}
-                  onPress={() => handleDayPress(day)}
-                  disabled={!inCurrentMonth || isFuture}
+                  onPress={() => inCurrentMonth && handleDayPress(day)}
+                  disabled={!inCurrentMonth}
                   style={[
                     styles.miniDayCell,
                     selected && styles.dayCellSelected,
@@ -342,17 +330,16 @@ const LogPeriodSheet: React.FC<LogSheetProps> = ({
                   ]}
                   accessibilityRole="button"
                   accessibilityLabel={format(day, 'MMMM d, yyyy')}
-                  accessibilityState={{ selected, disabled: !inCurrentMonth || isFuture }}
+                  accessibilityState={{ selected, disabled: !inCurrentMonth }}
                 >
                   <Text
                     style={[
                       styles.dayNumberText,
                       !inCurrentMonth && styles.dayNumberOutside,
-                      isFuture && styles.dayNumberDisabled,
                       selected && styles.dayNumberSelected,
                     ]}
                   >
-                    {format(day, 'd')}
+                    {inCurrentMonth ? format(day, 'd') : ''}
                   </Text>
                 </Pressable>
               );
@@ -422,8 +409,6 @@ export default function TrackScreen() {
     return eachDayOfInterval({ start: calendarStart, end: calendarEnd });
   }, [currentMonth]);
 
-  const today = useMemo(() => startOfDay(new Date()), []);
-
   // Handlers for month navigation
   const prevMonth = useCallback(() => {
     triggerKeyHaptic();
@@ -474,17 +459,13 @@ export default function TrackScreen() {
           ]
         );
       } else {
-        // Unlogged day: if not in future, open sheet pre-selected with this day
-        if (isAfter(startOfDay(day), today)) {
-          triggerErrorHaptic();
-          return;
-        }
+        // Unlogged day: open sheet pre-selected with this day
         setEditingLog(null);
         setInitialTappedDay(formatDateKey(day));
         setSheetVisible(true);
       }
     },
-    [logs, removeLog, t, today]
+    [logs, removeLog, t]
   );
 
   const openLogSheetForNew = () => {

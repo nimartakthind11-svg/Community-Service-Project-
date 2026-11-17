@@ -61,8 +61,8 @@ export function doPeriodsOverlap(
 
 /**
  * Validates a period date range:
- * 1. Checks that end_date is not before start_date.
- * 2. Checks that neither date is in the future beyond `today`.
+ * 1. Checks that start_date is present and valid.
+ * 2. Checks that end_date (if present) is not before start_date.
  * 3. Checks that this period does not overlap with any existing period
  *    (excluding the one being edited, if `editingId` is provided).
  */
@@ -71,22 +71,16 @@ export function validatePeriodDates(
   endDateStr: string | null,
   existingLogs: (PeriodLogLike & { id?: number })[],
   editingId?: number | null,
-  today: Date = new Date()
+  _today?: Date
 ): PeriodValidationResult {
   if (!startDateStr) {
     return { isValid: false, errorKey: 'invalidDate' };
   }
 
-  const todayStart = startOfDay(today);
   const start = startOfDay(parseISO(startDateStr));
 
   if (isNaN(start.getTime())) {
     return { isValid: false, errorKey: 'invalidDate' };
-  }
-
-  // Future start date check
-  if (isAfter(start, todayStart)) {
-    return { isValid: false, errorKey: 'futureDate' };
   }
 
   let end = start;
@@ -99,11 +93,6 @@ export function validatePeriodDates(
     // End date before start date
     if (isBefore(end, start)) {
       return { isValid: false, errorKey: 'endBeforeStart' };
-    }
-
-    // Future end date check
-    if (isAfter(end, todayStart)) {
-      return { isValid: false, errorKey: 'futureDate' };
     }
   }
 

@@ -89,15 +89,25 @@ test('Validation: end date before start date fails', () => {
   assert.equal(res.errorKey, 'endBeforeStart');
 });
 
-test('Validation: future start or end date fails', () => {
-  // TODAY is 2026-10-15
-  const resStartFuture = validatePeriodDates('2026-10-16', null, [], null, TODAY);
-  assert.equal(resStartFuture.isValid, false);
-  assert.equal(resStartFuture.errorKey, 'futureDate');
+test('Validation: selecting dates before, on, and after current date is valid', () => {
+  // TODAY is 2026-11-18
+  // 1. Dates before today
+  const resPast = validatePeriodDates('2026-11-01', '2026-11-05', [], null, TODAY);
+  assert.equal(resPast.isValid, true);
 
-  const resEndFuture = validatePeriodDates('2026-10-14', '2026-10-18', [], null, TODAY);
-  assert.equal(resEndFuture.isValid, false);
-  assert.equal(resEndFuture.errorKey, 'futureDate');
+  // 2. Dates on and encompassing today
+  const resPresent = validatePeriodDates('2026-11-16', '2026-11-20', [], null, TODAY);
+  assert.equal(resPresent.isValid, true);
+
+  // 3. Dates after today
+  const resFuture = validatePeriodDates('2026-11-20', '2026-11-24', [], null, TODAY);
+  assert.equal(resFuture.isValid, true);
+});
+
+test('Validation: period range spanning two different months is valid', () => {
+  // Range from November 28, 2026 to December 2, 2026
+  const resSpanningMonths = validatePeriodDates('2026-11-28', '2026-12-02', [], null, TODAY);
+  assert.equal(resSpanningMonths.isValid, true);
 });
 
 test('Validation: overlapping period fails', () => {
