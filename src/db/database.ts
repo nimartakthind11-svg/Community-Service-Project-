@@ -1,4 +1,5 @@
 import { type SQLiteDatabase } from 'expo-sqlite';
+import i18next from '../i18n';
 import {
   SEED_TOPICS,
   SEED_ARTICLES,
@@ -32,6 +33,8 @@ export async function migrateDbIfNeeded(db: SQLiteDatabase): Promise<void> {
       slug TEXT UNIQUE NOT NULL,
       title TEXT NOT NULL,
       subtitle TEXT NOT NULL,
+      title_hi TEXT,
+      subtitle_hi TEXT,
       icon TEXT NOT NULL,
       read_count INTEGER NOT NULL DEFAULT 0,
       category TEXT DEFAULT 'general'
@@ -42,6 +45,8 @@ export async function migrateDbIfNeeded(db: SQLiteDatabase): Promise<void> {
       topic_id INTEGER NOT NULL,
       title TEXT NOT NULL,
       body TEXT NOT NULL,
+      title_hi TEXT,
+      body_hi TEXT,
       read_minutes INTEGER NOT NULL DEFAULT 3,
       source TEXT NOT NULL,
       FOREIGN KEY (topic_id) REFERENCES topics(id) ON DELETE CASCADE
@@ -52,6 +57,8 @@ export async function migrateDbIfNeeded(db: SQLiteDatabase): Promise<void> {
       topic_id INTEGER,
       myth TEXT NOT NULL,
       fact TEXT NOT NULL,
+      myth_hi TEXT,
+      fact_hi TEXT,
       source TEXT NOT NULL,
       position INTEGER NOT NULL DEFAULT 0,
       FOREIGN KEY (topic_id) REFERENCES topics(id) ON DELETE SET NULL
@@ -63,6 +70,8 @@ export async function migrateDbIfNeeded(db: SQLiteDatabase): Promise<void> {
       topic_slug TEXT,
       question TEXT NOT NULL,
       answer TEXT NOT NULL,
+      question_hi TEXT,
+      answer_hi TEXT,
       source TEXT NOT NULL,
       is_concerning INTEGER DEFAULT 0,
       FOREIGN KEY (topic_id) REFERENCES topics(id) ON DELETE SET NULL
@@ -98,16 +107,44 @@ export async function migrateDbIfNeeded(db: SQLiteDatabase): Promise<void> {
     );
   `);
 
-  // 2. Check if already seeded
+  // 2. Migration for existing DBs: ensure localized columns exist
+  try {
+    await db.execAsync('ALTER TABLE topics ADD COLUMN title_hi TEXT;');
+  } catch {}
+  try {
+    await db.execAsync('ALTER TABLE topics ADD COLUMN subtitle_hi TEXT;');
+  } catch {}
+  try {
+    await db.execAsync('ALTER TABLE articles ADD COLUMN title_hi TEXT;');
+  } catch {}
+  try {
+    await db.execAsync('ALTER TABLE articles ADD COLUMN body_hi TEXT;');
+  } catch {}
+  try {
+    await db.execAsync('ALTER TABLE myths ADD COLUMN myth_hi TEXT;');
+  } catch {}
+  try {
+    await db.execAsync('ALTER TABLE myths ADD COLUMN fact_hi TEXT;');
+  } catch {}
+  try {
+    await db.execAsync('ALTER TABLE questions ADD COLUMN question_hi TEXT;');
+  } catch {}
+  try {
+    await db.execAsync('ALTER TABLE questions ADD COLUMN answer_hi TEXT;');
+  } catch {}
+
+  // 3. Check if already seeded
   const existingTopics = await db.getAllAsync<{ id: number }>('SELECT id FROM topics LIMIT 1');
   if (existingTopics.length === 0) {
     // Seed Topics
     for (const t of SEED_TOPICS) {
       await db.runAsync(
-        'INSERT OR IGNORE INTO topics (slug, title, subtitle, icon, read_count, category) VALUES (?, ?, ?, ?, ?, ?)',
+        'INSERT OR IGNORE INTO topics (slug, title, subtitle, title_hi, subtitle_hi, icon, read_count, category) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
         t.slug,
         t.title,
         t.subtitle,
+        t.title_hi ?? null,
+        t.subtitle_hi ?? null,
         t.icon,
         t.read_count,
         t.category
@@ -122,10 +159,12 @@ export async function migrateDbIfNeeded(db: SQLiteDatabase): Promise<void> {
       );
       if (topic) {
         await db.runAsync(
-          'INSERT INTO articles (topic_id, title, body, read_minutes, source) VALUES (?, ?, ?, ?, ?)',
+          'INSERT INTO articles (topic_id, title, body, title_hi, body_hi, read_minutes, source) VALUES (?, ?, ?, ?, ?, ?, ?)',
           topic.id,
           a.title,
           a.body,
+          a.title_hi ?? null,
+          a.body_hi ?? null,
           a.read_minutes,
           a.source
         );
@@ -139,10 +178,12 @@ export async function migrateDbIfNeeded(db: SQLiteDatabase): Promise<void> {
         m.topic_slug
       );
       await db.runAsync(
-        'INSERT INTO myths (topic_id, myth, fact, source, position) VALUES (?, ?, ?, ?, ?)',
+        'INSERT INTO myths (topic_id, myth, fact, myth_hi, fact_hi, source, position) VALUES (?, ?, ?, ?, ?, ?, ?)',
         topic?.id ?? null,
         m.myth,
         m.fact,
+        m.myth_hi ?? null,
+        m.fact_hi ?? null,
         m.source,
         m.position
       );
@@ -155,11 +196,13 @@ export async function migrateDbIfNeeded(db: SQLiteDatabase): Promise<void> {
         q.topic_slug
       );
       await db.runAsync(
-        'INSERT INTO questions (topic_id, topic_slug, question, answer, source) VALUES (?, ?, ?, ?, ?)',
+        'INSERT INTO questions (topic_id, topic_slug, question, answer, question_hi, answer_hi, source) VALUES (?, ?, ?, ?, ?, ?, ?)',
         topic?.id ?? null,
         q.topic_slug,
         q.question,
         q.answer,
+        q.question_hi ?? null,
+        q.answer_hi ?? null,
         q.source
       );
     }
@@ -183,7 +226,7 @@ export async function migrateDbIfNeeded(db: SQLiteDatabase): Promise<void> {
     }
   }
 
-  // Ensure all seed articles exist even if database was seeded in a prior version
+  // Ensure all seed articles exist and update Hindi localized fields
   for (const a of SEED_ARTICLES) {
     const topic = await db.getFirstAsync<{ id: number }>(
       'SELECT id FROM topics WHERE slug = ?',
@@ -196,31 +239,55 @@ export async function migrateDbIfNeeded(db: SQLiteDatabase): Promise<void> {
       );
       if (!existing) {
         await db.runAsync(
-          'INSERT INTO articles (topic_id, title, body, read_minutes, source) VALUES (?, ?, ?, ?, ?)',
+          'INSERT INTO articles (topic_id, title, body, title_hi, body_hi, read_minutes, source) VALUES (?, ?, ?, ?, ?, ?, ?)',
           topic.id,
           a.title,
           a.body,
+          a.title_hi ?? null,
+          a.body_hi ?? null,
           a.read_minutes,
           a.source
+        );
+      } else {
+        await db.runAsync(
+          'UPDATE articles SET title_hi = ?, body_hi = ? WHERE id = ?',
+          a.title_hi ?? null,
+          a.body_hi ?? null,
+          existing.id
         );
       }
     }
   }
 
-  // Ensure all seed topics exist
+  // Ensure all seed topics exist and update Hindi localized fields
   for (const t of SEED_TOPICS) {
-    await db.runAsync(
-      'INSERT OR IGNORE INTO topics (slug, title, subtitle, icon, read_count, category) VALUES (?, ?, ?, ?, ?, ?)',
-      t.slug,
-      t.title,
-      t.subtitle,
-      t.icon,
-      t.read_count,
-      t.category
+    const existing = await db.getFirstAsync<{ id: number }>(
+      'SELECT id FROM topics WHERE slug = ?',
+      t.slug
     );
+    if (!existing) {
+      await db.runAsync(
+        'INSERT OR IGNORE INTO topics (slug, title, subtitle, title_hi, subtitle_hi, icon, read_count, category) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+        t.slug,
+        t.title,
+        t.subtitle,
+        t.title_hi ?? null,
+        t.subtitle_hi ?? null,
+        t.icon,
+        t.read_count,
+        t.category
+      );
+    } else {
+      await db.runAsync(
+        'UPDATE topics SET title_hi = ?, subtitle_hi = ? WHERE id = ?',
+        t.title_hi ?? null,
+        t.subtitle_hi ?? null,
+        existing.id
+      );
+    }
   }
 
-  // Ensure all seed myths exist and map to appropriate topics
+  // Ensure all seed myths exist and update Hindi localized fields
   for (const m of SEED_MYTHS) {
     const topic = await db.getFirstAsync<{ id: number }>(
       'SELECT id FROM topics WHERE slug = ?',
@@ -232,19 +299,23 @@ export async function migrateDbIfNeeded(db: SQLiteDatabase): Promise<void> {
     );
     if (existing) {
       await db.runAsync(
-        'UPDATE myths SET topic_id = ?, position = ?, source = ?, fact = ? WHERE id = ?',
+        'UPDATE myths SET topic_id = ?, position = ?, source = ?, fact = ?, myth_hi = ?, fact_hi = ? WHERE id = ?',
         topic?.id ?? null,
         m.position,
         m.source,
         m.fact,
+        m.myth_hi ?? null,
+        m.fact_hi ?? null,
         existing.id
       );
     } else {
       await db.runAsync(
-        'INSERT INTO myths (topic_id, myth, fact, source, position) VALUES (?, ?, ?, ?, ?)',
+        'INSERT INTO myths (topic_id, myth, fact, myth_hi, fact_hi, source, position) VALUES (?, ?, ?, ?, ?, ?, ?)',
         topic?.id ?? null,
         m.myth,
         m.fact,
+        m.myth_hi ?? null,
+        m.fact_hi ?? null,
         m.source,
         m.position
       );
@@ -276,7 +347,7 @@ export async function migrateDbIfNeeded(db: SQLiteDatabase): Promise<void> {
     );
   `);
 
-  // Ensure all seed questions exist and carry clinical sources and concern tags
+  // Ensure all seed questions exist and carry clinical sources, concern tags, and Hindi content
   for (const q of SEED_QUESTIONS) {
     const topic = await db.getFirstAsync<{ id: number }>(
       'SELECT id FROM topics WHERE slug = ?',
@@ -288,25 +359,43 @@ export async function migrateDbIfNeeded(db: SQLiteDatabase): Promise<void> {
     );
     if (existing) {
       await db.runAsync(
-        'UPDATE questions SET topic_id = ?, topic_slug = ?, answer = ?, source = ?, is_concerning = ? WHERE id = ?',
+        'UPDATE questions SET topic_id = ?, topic_slug = ?, answer = ?, source = ?, is_concerning = ?, question_hi = ?, answer_hi = ? WHERE id = ?',
         topic?.id ?? null,
         q.topic_slug,
         q.answer,
         q.source,
         (q as any).is_concerning ?? 0,
+        q.question_hi ?? null,
+        q.answer_hi ?? null,
         existing.id
       );
     } else {
       await db.runAsync(
-        'INSERT INTO questions (topic_id, topic_slug, question, answer, source, is_concerning) VALUES (?, ?, ?, ?, ?, ?)',
+        'INSERT INTO questions (topic_id, topic_slug, question, answer, question_hi, answer_hi, source, is_concerning) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
         topic?.id ?? null,
         q.topic_slug,
         q.question,
         q.answer,
+        q.question_hi ?? null,
+        q.answer_hi ?? null,
         q.source,
         (q as any).is_concerning ?? 0
       );
     }
+  }
+
+  // Restore persisted language on launch
+  try {
+    const langSetting = await db.getFirstAsync<{ value: string }>(
+      "SELECT value FROM settings WHERE key = 'language' LIMIT 1"
+    );
+    if (langSetting?.value && (langSetting.value === 'en' || langSetting.value === 'hi')) {
+      if (i18next.language !== langSetting.value) {
+        await i18next.changeLanguage(langSetting.value);
+      }
+    }
+  } catch (err) {
+    console.error('Failed to restore language setting:', err);
   }
 }
 

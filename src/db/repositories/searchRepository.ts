@@ -1,4 +1,5 @@
 import { type SQLiteDatabase } from 'expo-sqlite';
+import i18next from '../../i18n';
 import { extractSnippet } from '@/lib/searchUtils';
 
 export interface SearchResultItem {
@@ -15,7 +16,8 @@ export interface SearchResultItem {
 
 export async function searchOfflineContent(
   db: SQLiteDatabase,
-  query: string
+  query: string,
+  lang: string = i18next?.language || 'en'
 ): Promise<SearchResultItem[]> {
   const trimmed = query.trim();
   if (!trimmed) return [];
@@ -25,6 +27,13 @@ export async function searchOfflineContent(
 
   // 1. Search Articles
   try {
+    const isHindi = lang === 'hi';
+    const selectCols = isHindi
+      ? `id, topic_id, read_minutes, source,
+         COALESCE(NULLIF(title_hi, ''), title) AS title,
+         COALESCE(NULLIF(body_hi, ''), body) AS body`
+      : `id, topic_id, read_minutes, source, title, body`;
+
     const matchedArticles = await db.getAllAsync<{
       id: number;
       topic_id: number;
@@ -33,10 +42,12 @@ export async function searchOfflineContent(
       read_minutes: number;
       source: string;
     }>(
-      `SELECT id, topic_id, title, body, read_minutes, source
+      `SELECT ${selectCols}
        FROM articles
-       WHERE title LIKE ? OR body LIKE ?
+       WHERE title LIKE ? OR body LIKE ? OR title_hi LIKE ? OR body_hi LIKE ?
        LIMIT 10`,
+      param,
+      param,
       param,
       param
     );
@@ -58,6 +69,13 @@ export async function searchOfflineContent(
 
   // 2. Search Topics (Learn category)
   try {
+    const isHindi = lang === 'hi';
+    const selectCols = isHindi
+      ? `id, slug, read_count,
+         COALESCE(NULLIF(title_hi, ''), title) AS title,
+         COALESCE(NULLIF(subtitle_hi, ''), subtitle) AS subtitle`
+      : `id, slug, title, subtitle, read_count`;
+
     const matchedTopics = await db.getAllAsync<{
       id: number;
       slug: string;
@@ -65,10 +83,12 @@ export async function searchOfflineContent(
       subtitle: string;
       read_count: number;
     }>(
-      `SELECT id, slug, title, subtitle, read_count
+      `SELECT ${selectCols}
        FROM topics
-       WHERE category = 'learn' AND (title LIKE ? OR subtitle LIKE ?)
+       WHERE category = 'learn' AND (title LIKE ? OR subtitle LIKE ? OR title_hi LIKE ? OR subtitle_hi LIKE ?)
        LIMIT 5`,
+      param,
+      param,
       param,
       param
     );
@@ -90,6 +110,13 @@ export async function searchOfflineContent(
 
   // 3. Search Myths vs Facts
   try {
+    const isHindi = lang === 'hi';
+    const selectCols = isHindi
+      ? `id, topic_id, source,
+         COALESCE(NULLIF(myth_hi, ''), myth) AS myth,
+         COALESCE(NULLIF(fact_hi, ''), fact) AS fact`
+      : `id, topic_id, myth, fact, source`;
+
     const matchedMyths = await db.getAllAsync<{
       id: number;
       topic_id: number;
@@ -97,10 +124,12 @@ export async function searchOfflineContent(
       fact: string;
       source: string;
     }>(
-      `SELECT id, topic_id, myth, fact, source
+      `SELECT ${selectCols}
        FROM myths
-       WHERE myth LIKE ? OR fact LIKE ?
+       WHERE myth LIKE ? OR fact LIKE ? OR myth_hi LIKE ? OR fact_hi LIKE ?
        LIMIT 5`,
+      param,
+      param,
       param,
       param
     );

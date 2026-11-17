@@ -224,12 +224,23 @@
     "backToSettings": "सेटिंग्स पर वापस जाएं",
     "back": "सेटिंग्स"
   },
+  "language": {
+    "title": "भाषा",
+    "subtitle": "अपनी पसंदीदा भाषा चुनें।",
+    "englishLabel": "English",
+    "englishSub": "अंग्रेज़ी",
+    "hindiLabel": "हिन्दी",
+    "hindiSub": "हिन्दी",
+    "activeBadge": "सक्रिय",
+    "back": "सेटिंग्स"
+  },
   "common": {
     "loading": "लोड हो रहा है...",
     "save": "सहेजें",
     "cancel": "रद्द करें",
     "done": "हो गया",
-    "back": "पीछे"
+    "back": "पीछे",
+    "error": "कुछ गलत हो गया। कृपया पुन: प्रयास करें।"
   }
 }
 

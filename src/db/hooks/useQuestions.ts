@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useSQLiteContext } from 'expo-sqlite';
+import { useTranslation } from 'react-i18next';
 import { Question } from '../schema';
 import {
   getQuestions,
@@ -11,6 +12,7 @@ import {
 
 export function useQuestions(topicSlug?: string) {
   const db = useSQLiteContext();
+  const { i18n } = useTranslation();
   const [questions, setQuestions] = useState<Question[]>([]);
   const [feedbackMap, setFeedbackMap] = useState<Map<number, boolean>>(new Map());
   const [loading, setLoading] = useState(true);
@@ -19,7 +21,7 @@ export function useQuestions(topicSlug?: string) {
     try {
       setLoading(true);
       const [data, feedback] = await Promise.all([
-        getQuestions(db, topicSlug),
+        getQuestions(db, topicSlug, i18n.language),
         getAllQuestionFeedback(db),
       ]);
       setQuestions(data);
@@ -29,7 +31,7 @@ export function useQuestions(topicSlug?: string) {
     } finally {
       setLoading(false);
     }
-  }, [db, topicSlug]);
+  }, [db, topicSlug, i18n.language]);
 
   useEffect(() => {
     let isMounted = true;
@@ -37,7 +39,7 @@ export function useQuestions(topicSlug?: string) {
       try {
         setLoading(true);
         const [data, feedback] = await Promise.all([
-          getQuestions(db, topicSlug),
+          getQuestions(db, topicSlug, i18n.language),
           getAllQuestionFeedback(db),
         ]);
         if (isMounted) {
@@ -54,7 +56,7 @@ export function useQuestions(topicSlug?: string) {
     return () => {
       isMounted = false;
     };
-  }, [db, topicSlug]);
+  }, [db, topicSlug, i18n.language]);
 
   const search = useCallback(
     async (query: string) => {
@@ -64,7 +66,7 @@ export function useQuestions(topicSlug?: string) {
       }
       try {
         setLoading(true);
-        const data = await searchQuestions(db, query, topicSlug);
+        const data = await searchQuestions(db, query, topicSlug, i18n.language);
         setQuestions(data);
       } catch (err) {
         console.error('Failed to search questions:', err);
@@ -72,7 +74,7 @@ export function useQuestions(topicSlug?: string) {
         setLoading(false);
       }
     },
-    [db, topicSlug, loadAll]
+    [db, topicSlug, loadAll, i18n.language]
   );
 
   const submitFeedback = useCallback(

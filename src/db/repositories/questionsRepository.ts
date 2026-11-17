@@ -1,50 +1,78 @@
 import { type SQLiteDatabase } from 'expo-sqlite';
+import i18next from '../../i18n';
 import { Question, SuggestedQuestion } from '../schema';
 
 export async function getQuestions(
   db: SQLiteDatabase,
-  topicSlug?: string
+  topicSlug?: string,
+  lang: string = i18next?.language || 'en'
 ): Promise<Question[]> {
+  const selectCols =
+    lang === 'hi'
+      ? `id, topic_id, topic_slug, source, is_concerning,
+         COALESCE(NULLIF(question_hi, ''), question) AS question,
+         COALESCE(NULLIF(answer_hi, ''), answer) AS answer,
+         question_hi, answer_hi`
+      : '*';
+
   if (topicSlug && topicSlug !== 'all') {
     // If filtering by hygiene, match both 'hygiene' and 'hygiene-ask'
     if (topicSlug === 'hygiene' || topicSlug === 'hygiene-ask') {
       return await db.getAllAsync<Question>(
-        "SELECT * FROM questions WHERE topic_slug = 'hygiene' OR topic_slug = 'hygiene-ask' ORDER BY id ASC"
+        `SELECT ${selectCols} FROM questions WHERE topic_slug = 'hygiene' OR topic_slug = 'hygiene-ask' ORDER BY id ASC`
       );
     }
     return await db.getAllAsync<Question>(
-      'SELECT * FROM questions WHERE topic_slug = ? ORDER BY id ASC',
+      `SELECT ${selectCols} FROM questions WHERE topic_slug = ? ORDER BY id ASC`,
       topicSlug
     );
   }
   return await db.getAllAsync<Question>(
-    'SELECT * FROM questions ORDER BY id ASC'
+    `SELECT ${selectCols} FROM questions ORDER BY id ASC`
   );
 }
 
 export async function searchQuestions(
   db: SQLiteDatabase,
   query: string,
-  topicSlug?: string
+  topicSlug?: string,
+  lang: string = i18next?.language || 'en'
 ): Promise<Question[]> {
   const wildcard = `%${query.trim()}%`;
+  const selectCols =
+    lang === 'hi'
+      ? `id, topic_id, topic_slug, source, is_concerning,
+         COALESCE(NULLIF(question_hi, ''), question) AS question,
+         COALESCE(NULLIF(answer_hi, ''), answer) AS answer,
+         question_hi, answer_hi`
+      : '*';
+
+  const matchCondition =
+    `(question LIKE ? OR answer LIKE ? OR question_hi LIKE ? OR answer_hi LIKE ?)`;
+
   if (topicSlug && topicSlug !== 'all') {
     if (topicSlug === 'hygiene' || topicSlug === 'hygiene-ask') {
       return await db.getAllAsync<Question>(
-        "SELECT * FROM questions WHERE (topic_slug = 'hygiene' OR topic_slug = 'hygiene-ask') AND (question LIKE ? OR answer LIKE ?) ORDER BY id ASC",
+        `SELECT ${selectCols} FROM questions WHERE (topic_slug = 'hygiene' OR topic_slug = 'hygiene-ask') AND ${matchCondition} ORDER BY id ASC`,
+        wildcard,
+        wildcard,
         wildcard,
         wildcard
       );
     }
     return await db.getAllAsync<Question>(
-      'SELECT * FROM questions WHERE topic_slug = ? AND (question LIKE ? OR answer LIKE ?) ORDER BY id ASC',
+      `SELECT ${selectCols} FROM questions WHERE topic_slug = ? AND ${matchCondition} ORDER BY id ASC`,
       topicSlug,
+      wildcard,
+      wildcard,
       wildcard,
       wildcard
     );
   }
   return await db.getAllAsync<Question>(
-    'SELECT * FROM questions WHERE question LIKE ? OR answer LIKE ? ORDER BY id ASC',
+    `SELECT ${selectCols} FROM questions WHERE ${matchCondition} ORDER BY id ASC`,
+    wildcard,
+    wildcard,
     wildcard,
     wildcard
   );
@@ -54,25 +82,34 @@ export async function getRelatedQuestions(
   db: SQLiteDatabase,
   questionId: number,
   topicSlug?: string,
-  limit = 3
+  limit = 3,
+  lang: string = i18next?.language || 'en'
 ): Promise<Question[]> {
+  const selectCols =
+    lang === 'hi'
+      ? `id, topic_id, topic_slug, source, is_concerning,
+         COALESCE(NULLIF(question_hi, ''), question) AS question,
+         COALESCE(NULLIF(answer_hi, ''), answer) AS answer,
+         question_hi, answer_hi`
+      : '*';
+
   if (topicSlug) {
     if (topicSlug === 'hygiene' || topicSlug === 'hygiene-ask') {
       return await db.getAllAsync<Question>(
-        "SELECT * FROM questions WHERE id != ? AND (topic_slug = 'hygiene' OR topic_slug = 'hygiene-ask') ORDER BY id ASC LIMIT ?",
+        `SELECT ${selectCols} FROM questions WHERE id != ? AND (topic_slug = 'hygiene' OR topic_slug = 'hygiene-ask') ORDER BY id ASC LIMIT ?`,
         questionId,
         limit
       );
     }
     return await db.getAllAsync<Question>(
-      'SELECT * FROM questions WHERE id != ? AND topic_slug = ? ORDER BY id ASC LIMIT ?',
+      `SELECT ${selectCols} FROM questions WHERE id != ? AND topic_slug = ? ORDER BY id ASC LIMIT ?`,
       questionId,
       topicSlug,
       limit
     );
   }
   return await db.getAllAsync<Question>(
-    'SELECT * FROM questions WHERE id != ? ORDER BY id ASC LIMIT ?',
+    `SELECT ${selectCols} FROM questions WHERE id != ? ORDER BY id ASC LIMIT ?`,
     questionId,
     limit
   );

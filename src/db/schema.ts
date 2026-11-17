@@ -14,6 +14,8 @@ export interface Topic {
   slug: string;
   title: string;
   subtitle: string;
+  title_hi?: string | null;
+  subtitle_hi?: string | null;
   icon: string;
   read_count: number;
   category?: string; // 'learn' | 'ask'
@@ -24,6 +26,8 @@ export interface Article {
   topic_id: number;
   title: string;
   body: string;
+  title_hi?: string | null;
+  body_hi?: string | null;
   read_minutes: number;
   source: string;
 }
@@ -33,6 +37,8 @@ export interface Myth {
   topic_id: number | null;
   myth: string;
   fact: string;
+  myth_hi?: string | null;
+  fact_hi?: string | null;
   source: string;
   position: number;
 }
@@ -54,6 +60,8 @@ export interface Question {
   topic_slug?: string;
   question: string;
   answer: string;
+  question_hi?: string | null;
+  answer_hi?: string | null;
   source: string;
   is_concerning?: number;
 }

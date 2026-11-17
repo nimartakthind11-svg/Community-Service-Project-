@@ -39,6 +39,11 @@ export default function SettingsScreen() {
     router.push('/settings/change-pin' as any);
   };
 
+  const handleLanguagePress = () => {
+    triggerKeyHaptic();
+    router.push('/settings/language' as any);
+  };
+
   return (
     <ScreenWrapper scrollable>
       {/* Top Brand Header */}
@@ -88,7 +93,7 @@ export default function SettingsScreen() {
 
         {/* Row 2: Language */}
         <Pressable
-          onPress={handleRowPress}
+          onPress={handleLanguagePress}
           style={({ pressed }) => [
             styles.cardRow,
             pressed && styles.cardRowPressed,

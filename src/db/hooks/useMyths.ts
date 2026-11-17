@@ -1,5 +1,6 @@
 import { useSQLiteContext } from 'expo-sqlite';
 import { useCallback, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   getMythsByTopicSlug,
   getViewedMythIds,
@@ -10,6 +11,7 @@ import { MythWithTopic } from '../schema';
 
 export function useMyths(topicSlug?: string | null) {
   const db = useSQLiteContext();
+  const { i18n } = useTranslation();
   const [myths, setMyths] = useState<MythWithTopic[]>([]);
   const [viewedIds, setViewedIds] = useState<Set<number>>(new Set());
   const [loading, setLoading] = useState(true);
@@ -18,7 +20,7 @@ export function useMyths(topicSlug?: string | null) {
     try {
       setLoading(true);
       const [data, views] = await Promise.all([
-        getMythsByTopicSlug(db, topicSlug),
+        getMythsByTopicSlug(db, topicSlug, i18n.language),
         getViewedMythIds(db),
       ]);
       setMyths(data);
@@ -28,7 +30,7 @@ export function useMyths(topicSlug?: string | null) {
     } finally {
       setLoading(false);
     }
-  }, [db, topicSlug]);
+  }, [db, topicSlug, i18n.language]);
 
   useEffect(() => {
     let isMounted = true;
@@ -36,7 +38,7 @@ export function useMyths(topicSlug?: string | null) {
       try {
         setLoading(true);
         const [data, views] = await Promise.all([
-          getMythsByTopicSlug(db, topicSlug),
+          getMythsByTopicSlug(db, topicSlug, i18n.language),
           getViewedMythIds(db),
         ]);
         if (isMounted) {
@@ -53,7 +55,7 @@ export function useMyths(topicSlug?: string | null) {
     return () => {
       isMounted = false;
     };
-  }, [db, topicSlug]);
+  }, [db, topicSlug, i18n.language]);
 
   const markViewed = useCallback(
     async (mythId: number) => {

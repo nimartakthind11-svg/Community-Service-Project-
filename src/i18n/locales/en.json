@@ -224,12 +224,23 @@
     "backToSettings": "Back to Settings",
     "back": "Settings"
   },
+  "language": {
+    "title": "Language",
+    "subtitle": "Pick the language you prefer.",
+    "englishLabel": "English",
+    "englishSub": "English",
+    "hindiLabel": "हिन्दी",
+    "hindiSub": "Hindi",
+    "activeBadge": "Active",
+    "back": "Settings"
+  },
   "common": {
     "loading": "Loading...",
     "save": "Save",
     "cancel": "Cancel",
     "done": "Done",
-    "back": "Back"
+    "back": "Back",
+    "error": "Something went wrong. Please try again."
   }
 }
 

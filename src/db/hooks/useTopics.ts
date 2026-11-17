@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useSQLiteContext } from 'expo-sqlite';
+import { useTranslation } from 'react-i18next';
 import { Topic } from '../schema';
 import {
   getTopicsByCategory,
@@ -9,24 +10,25 @@ import {
 
 export function useTopics(category: 'learn' | 'ask' = 'learn') {
   const db = useSQLiteContext();
+  const { i18n } = useTranslation();
   const [topics, setTopics] = useState<Topic[]>([]);
   const [loading, setLoading] = useState(true);
 
   const refreshTopics = useCallback(async () => {
     try {
       setLoading(true);
-      const data = await getTopicsByCategory(db, category);
+      const data = await getTopicsByCategory(db, category, i18n.language);
       setTopics(data);
     } catch (err) {
       console.error('Failed to load topics:', err);
     } finally {
       setLoading(false);
     }
-  }, [db, category]);
+  }, [db, category, i18n.language]);
 
   useEffect(() => {
     let isMounted = true;
-    getTopicsByCategory(db, category)
+    getTopicsByCategory(db, category, i18n.language)
       .then((data) => {
         if (isMounted) {
           setTopics(data);
@@ -41,7 +43,7 @@ export function useTopics(category: 'learn' | 'ask' = 'learn') {
     return () => {
       isMounted = false;
     };
-  }, [db, category]);
+  }, [db, category, i18n.language]);
 
   const markTopicRead = useCallback(
     async (topicId: number) => {
@@ -56,6 +58,7 @@ export function useTopics(category: 'learn' | 'ask' = 'learn') {
 
 export function useTopicDetail(slug: string) {
   const db = useSQLiteContext();
+  const { i18n } = useTranslation();
   const [topic, setTopic] = useState<Topic | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -64,7 +67,7 @@ export function useTopicDetail(slug: string) {
     async function load() {
       try {
         setLoading(true);
-        const data = await getTopicBySlug(db, slug);
+        const data = await getTopicBySlug(db, slug, i18n.language);
         if (isMounted) setTopic(data);
       } catch (err) {
         console.error('Failed to load topic detail:', err);
@@ -76,7 +79,7 @@ export function useTopicDetail(slug: string) {
     return () => {
       isMounted = false;
     };
-  }, [db, slug]);
+  }, [db, slug, i18n.language]);
 
   return { topic, loading };
 }
