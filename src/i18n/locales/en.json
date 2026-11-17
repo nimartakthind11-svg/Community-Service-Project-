@@ -234,6 +234,28 @@
     "activeBadge": "Active",
     "back": "Settings"
   },
+  "privacy": {
+    "title": "Privacy information",
+    "subtitle": "How your information is kept private, safe, and entirely yours.",
+    "back": "Settings",
+    "noAccountTitle": "No account required",
+    "noAccountDesc": "Sakhi works completely without logins, passwords, emails, or phone numbers. Your identity is never requested.",
+    "onDeviceTitle": "Stored only on your phone",
+    "onDeviceDesc": "All your cycle dates, personal notes, and reading history stay exclusively on this device inside a local database.",
+    "noSharingTitle": "No tracking or external sharing",
+    "noSharingDesc": "Nothing is ever sent to servers, trackers, or third parties. Sakhi operates 100% offline without network connections.",
+    "appDeletionTitle": "Deleting the app",
+    "appDeletionDesc": "Uninstalling the app removes all locally stored data from this phone, subject to your device's automatic cloud backup settings.",
+    "reassuranceTitle": "Your space, truly private.",
+    "reassuranceSubtitle": "You are always in complete control of your health information.",
+    "deleteDataButton": "Delete all my data",
+    "deleteDataSubtext": "Permanently erase your PIN, period logs, and settings from this device.",
+    "sheetTitle": "Delete all your data?",
+    "sheetSubtitle": "This will permanently erase all your period logs, cycle predictions, PIN security, settings, and learning activity. This cannot be undone.",
+    "cancelButton": "Cancel",
+    "confirmDeleteButton": "Delete all data",
+    "deleting": "Deleting..."
+  },
   "common": {
     "loading": "Loading...",
     "save": "Save",

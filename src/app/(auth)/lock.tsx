@@ -58,6 +58,7 @@ export default function LockScreen() {
   }));
 
   const triggerShake = useCallback(() => {
+    // eslint-disable-next-line react-hooks/immutability
     shakeOffset.value = withSequence(
       withTiming(-14, { duration: 55 }),
       withTiming(14, { duration: 55 }),
@@ -76,15 +77,23 @@ export default function LockScreen() {
     }
   }, [isAuthenticated, router]);
 
-  // Check lockout on mount and when app focuses
-  const checkLockout = useCallback(async () => {
-    const status = await getLockoutStatus();
-    setLockout(status);
-  }, []);
-
+  // Check lockout on mount
   useEffect(() => {
-    checkLockout();
-  }, [checkLockout]);
+    let isMounted = true;
+    getLockoutStatus()
+      .then((status) => {
+        if (isMounted) {
+          setLockout(status);
+        }
+      })
+      .catch((err) => {
+        console.error('Error checking lockout status:', err);
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   // Countdown timer when locked out
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);

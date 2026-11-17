@@ -143,25 +143,40 @@ export async function resetFailedAttempts(): Promise<void> {
 }
 
 export async function wipeLocalUserData(db?: SQLiteDatabase | null): Promise<void> {
-  // Wipe PIN & Lockout
+  // 1. Wipe PIN & Lockout from SecureStore / WebStorage
   await removePin();
   await resetFailedAttempts();
 
-  // Wipe database tables if db instance provided
+  // 2. Wipe database tables if db instance provided
   if (db) {
-    await db.execAsync(`
-      DELETE FROM period_logs;
-      DELETE FROM article_reads;
-      DELETE FROM settings;
-    `);
+    const userTablesToClear = [
+      'period_logs',
+      'article_reads',
+      'myth_views',
+      'suggested_questions',
+      'question_feedback',
+      'settings',
+    ];
 
-    // Restore baseline settings
+    for (const table of userTablesToClear) {
+      try {
+        await db.execAsync(`DELETE FROM ${table};`);
+      } catch (e) {
+        console.warn(`Could not clear table ${table}:`, e);
+      }
+    }
+
+    // 3. Restore baseline settings (Amara, cycle=29, period=5, language=en)
     for (const s of SEED_SETTINGS) {
-      await db.runAsync(
-        'INSERT OR REPLACE INTO settings (key, value) VALUES (?, ?)',
-        s.key,
-        s.value
-      );
+      try {
+        await db.runAsync(
+          'INSERT OR REPLACE INTO settings (key, value) VALUES (?, ?)',
+          s.key,
+          s.value
+        );
+      } catch (e) {
+        console.warn(`Could not restore baseline setting ${s.key}:`, e);
+      }
     }
   }
 }

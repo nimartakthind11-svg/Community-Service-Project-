@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, useCallback, useRef } from 'react';
 import { AppState, AppStateStatus } from 'react-native';
 import type { SQLiteDatabase } from 'expo-sqlite';
+import i18next from '../i18n';
 import { hasSavedPin, savePin, verifyPin, wipeLocalUserData } from './pinStorage';
 
 interface AuthContextType {
@@ -11,6 +12,7 @@ interface AuthContextType {
   setupNewPin: (pin: string) => Promise<void>;
   changePin: (newPin: string) => Promise<void>;
   resetUserPin: (db?: SQLiteDatabase | null) => Promise<void>;
+  deleteAllUserData: (db?: SQLiteDatabase | null) => Promise<void>;
   lockSession: () => void;
 }
 
@@ -86,11 +88,25 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setIsPinSet(true);
   }, []);
 
-  const resetUserPin = useCallback(async (db?: SQLiteDatabase | null): Promise<void> => {
+  const deleteAllUserData = useCallback(async (db?: SQLiteDatabase | null): Promise<void> => {
     await wipeLocalUserData(db);
+    try {
+      if (i18next.language !== 'en') {
+        await i18next.changeLanguage('en');
+      }
+    } catch (e) {
+      console.warn('Could not reset language to en:', e);
+    }
     setIsPinSet(false);
     setIsAuthenticated(false);
   }, []);
+
+  const resetUserPin = useCallback(
+    async (db?: SQLiteDatabase | null): Promise<void> => {
+      await deleteAllUserData(db);
+    },
+    [deleteAllUserData]
+  );
 
   const lockSession = useCallback(() => {
     setIsAuthenticated(false);
@@ -106,6 +122,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         setupNewPin,
         changePin,
         resetUserPin,
+        deleteAllUserData,
         lockSession,
       }}
     >

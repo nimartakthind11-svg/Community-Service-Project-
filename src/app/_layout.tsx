@@ -52,6 +52,7 @@ function AuthGate() {
       <Stack.Screen name="learn/article/[id]" />
       <Stack.Screen name="settings/change-pin" />
       <Stack.Screen name="settings/language" />
+      <Stack.Screen name="settings/privacy" />
     </Stack>
   );
 }

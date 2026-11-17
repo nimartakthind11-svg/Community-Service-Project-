@@ -29,11 +29,6 @@ export default function SettingsScreen() {
   const router = useRouter();
   const { t } = useTranslation();
 
-  const handleRowPress = () => {
-    triggerKeyHaptic();
-    // Functionality deferred to subsequent commits
-  };
-
   const handleChangePinPress = () => {
     triggerKeyHaptic();
     router.push('/settings/change-pin' as any);
@@ -42,6 +37,11 @@ export default function SettingsScreen() {
   const handleLanguagePress = () => {
     triggerKeyHaptic();
     router.push('/settings/language' as any);
+  };
+
+  const handlePrivacyPress = () => {
+    triggerKeyHaptic();
+    router.push('/settings/privacy' as any);
   };
 
   return (
@@ -125,7 +125,7 @@ export default function SettingsScreen() {
 
         {/* Row 3: Privacy Information */}
         <Pressable
-          onPress={handleRowPress}
+          onPress={handlePrivacyPress}
           style={({ pressed }) => [
             styles.cardRow,
             pressed && styles.cardRowPressed,
